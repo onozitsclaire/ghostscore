@@ -973,7 +973,50 @@
                 </div>
             </div>
             
-            <!-- Report Form Section - Moved to top for better conversion -->
+            <!-- Wall of Shame - Moved above form -->
+            <div class="wall-of-shame">
+                <h2>🏆 The Worst Ghosters</h2>
+                <div class="shame-grid">
+                    <div class="shame-card">
+                        <div class="company-name">Amazon</div>
+                        <div class="ghost-rate">91%</div>
+                        <div class="worst-offense">Sends "congratulations" then ghosts</div>
+                        <small>1,247 reports</small>
+                    </div>
+                    <div class="shame-card">
+                        <div class="company-name">Google</div>
+                        <div class="ghost-rate">87%</div>
+                        <div class="worst-offense">Stuck in 'team matching' forever</div>
+                        <small>1,189 reports</small>
+                    </div>
+                    <div class="shame-card">
+                        <div class="company-name">Meta</div>
+                        <div class="ghost-rate">87%</div>
+                        <div class="worst-offense">'I have an update!' then vanishes</div>
+                        <small>987 reports</small>
+                    </div>
+                    <div class="shame-card">
+                        <div class="company-name">Apple</div>
+                        <div class="ghost-rate">85%</div>
+                        <div class="worst-offense">8 rounds then nothing</div>
+                        <small>879 reports</small>
+                    </div>
+                    <div class="shame-card">
+                        <div class="company-name">Microsoft</div>
+                        <div class="ghost-rate">82%</div>
+                        <div class="worst-offense">Verbal offers then silence</div>
+                        <small>756 reports</small>
+                    </div>
+                    <div class="shame-card">
+                        <div class="company-name">Goldman Sachs</div>
+                        <div class="ghost-rate">88%</div>
+                        <div class="worst-offense">7 technical rounds then silence</div>
+                        <small>756 reports</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Report Form Section - Now below Wall of Shame -->
             <div style="background: linear-gradient(135deg, #f7fafc 0%, #ffffff 100%); border-radius: 20px; padding: 40px; margin: 40px 0; border: 2px solid rgba(102, 126, 234, 0.1);">
                 <h2 style="text-align: center; margin-bottom: 10px; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Report Your Ghost Story</h2>
                 <p style="text-align: center; color: #718096; margin-bottom: 30px;">Takes 30 seconds. Helps thousands. 100% anonymous.</p>
@@ -1068,37 +1111,6 @@
                         <button type="submit" class="btn btn-primary" style="font-size: 18px; padding: 16px 40px;">Submit Ghost Report 👻</button>
                     </div>
                 </form>
-            </div>
-            
-            <!-- Wall of Shame -->
-            <div class="wall-of-shame">
-                <h2>🏆 October's Worst Ghosters</h2>
-                <div class="shame-grid">
-                    <div class="shame-card">
-                        <div class="company-name">Amazon</div>
-                        <div class="ghost-rate">91%</div>
-                        <div class="worst-offense">Sends "congratulations" then ghosts</div>
-                        <small>1,247 reports</small>
-                    </div>
-                    <div class="shame-card">
-                        <div class="company-name">Oracle</div>
-                        <div class="ghost-rate">94%</div>
-                        <div class="worst-offense">"The Black Hole"</div>
-                        <small>678 reports</small>
-                    </div>
-                    <div class="shame-card">
-                        <div class="company-name">Goldman Sachs</div>
-                        <div class="ghost-rate">7 rounds</div>
-                        <div class="worst-offense">Then complete silence</div>
-                        <small>756 reports</small>
-                    </div>
-                    <div class="shame-card">
-                        <div class="company-name">Tesla</div>
-                        <div class="ghost-rate">7+ rounds</div>
-                        <div class="worst-offense">Asked for "Elon's review"</div>
-                        <small>445 reports</small>
-                    </div>
-                </div>
             </div>
             
             <!-- Live Ticker -->
@@ -1545,6 +1557,9 @@
             const grid = document.getElementById('companyGrid');
             if (!grid) return;
             
+            // Clear any existing content first
+            grid.innerHTML = '';
+            
             // Sort by reports and get top 6
             const topCompanies = [...companies].sort((a, b) => b.reports - a.reports).slice(0, 6);
             
@@ -1742,7 +1757,7 @@
             document.getElementById('companies').classList.add('active');
             document.querySelector('.tab-button').classList.add('active');
             
-            // Populate top companies on load
+            // Populate top companies on load immediately
             populateTopCompanies();
             
             // Adjust placeholders for mobile
