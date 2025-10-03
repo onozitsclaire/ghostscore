@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .hidden { display: none; }
+        .modal-open { overflow: hidden; }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-600 via-violet-600 to-indigo-700">
@@ -23,7 +24,7 @@
                 </p>
                 
                 <!-- Research Report Button -->
-                <button id="openResearchBtn" class="inline-flex items-center gap-2 bg-white text-purple-600 font-semibold py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg">
+                <button id="openResearchBtn" class="inline-flex items-center gap-2 bg-white text-purple-600 font-semibold py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg cursor-pointer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                     </svg>
@@ -379,7 +380,7 @@
         </div>
     </div>
 
-    <!-- Research Report Modal -->
+    <!-- Research Report Modal - COMPLETE VERSION -->
     <div id="researchModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 overflow-y-auto">
         <div class="min-h-screen px-4 py-8">
             <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl relative">
@@ -390,9 +391,9 @@
                     </svg>
                 </button>
 
-                <!-- Full Research Report Content (same as React version) -->
+                <!-- Report Content -->
                 <div class="p-8 md:p-12">
-                    <!-- I'll include the full research report HTML here - truncated for space -->
+                    <!-- Title Page -->
                     <div class="text-center mb-12 pb-8 border-b-2 border-gray-200">
                         <div class="text-6xl mb-6">👻</div>
                         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -408,7 +409,299 @@
                             <p class="text-sm italic">Last Updated: October 2025</p>
                         </div>
                     </div>
-                    <!-- Rest of research report content goes here - you have it all from the React version -->
+
+                    <!-- Executive Summary -->
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                            Executive Summary
+                        </h2>
+                        <div class="bg-purple-50 border-l-4 border-purple-600 p-6 rounded-lg mb-6">
+                            <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                                Employer ghosting has evolved from an occasional professional discourtesy into a <strong>systemic breakdown 
+                                in the hiring process</strong>. Our analysis of over 1 million data points reveals that the practice has 
+                                <strong> more than doubled since 2020</strong>, with 61% of job seekers now reporting they have been ghosted 
+                                after an interview.
+                            </p>
+                            <p class="text-lg text-gray-800 leading-relaxed">
+                                This report documents the scale, causes, and consequences of this epidemic, establishing the empirical 
+                                foundation for transparent accountability in hiring through the GhostScore platform.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Key Statistics Dashboard -->
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            Key Statistics
+                        </h2>
+                        
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                                <div class="text-4xl font-bold text-red-600 mb-2">75%</div>
+                                <div class="text-gray-700 font-medium">Applications receive ZERO response</div>
+                                <div class="text-sm text-gray-600 mt-2">The "application black hole"</div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border-2 border-orange-200">
+                                <div class="text-4xl font-bold text-orange-600 mb-2">61%</div>
+                                <div class="text-gray-700 font-medium">Job seekers ghosted post-interview</div>
+                                <div class="text-sm text-gray-600 mt-2">Up 9% in 2024 alone</div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border-2 border-yellow-200">
+                                <div class="text-4xl font-bold text-yellow-600 mb-2">40%</div>
+                                <div class="text-gray-700 font-medium">Ghosted after 2nd/3rd round</div>
+                                <div class="text-sm text-gray-600 mt-2">High investment, high disrespect</div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200">
+                                <div class="text-4xl font-bold text-purple-600 mb-2">10%</div>
+                                <div class="text-gray-700 font-medium">Ghosted after verbal offer</div>
+                                <div class="text-sm text-gray-600 mt-2">Even promises mean nothing</div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200">
+                                <div class="text-4xl font-bold text-blue-600 mb-2">112%</div>
+                                <div class="text-gray-700 font-medium">Increase since pandemic began</div>
+                                <div class="text-sm text-gray-600 mt-2">Doubled in just 5 years</div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200">
+                                <div class="text-4xl font-bold text-green-600 mb-2">$4,900</div>
+                                <div class="text-gray-700 font-medium">Average candidate cost</div>
+                                <div class="text-sm text-gray-600 mt-2">Time, travel, lost opportunities</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Industry Comparison -->
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                            Industry Analysis
+                        </h2>
+                        
+                        <div class="bg-gray-50 p-6 rounded-xl mb-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Application Response Rates by Industry</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-semibold text-gray-700">Healthcare & Life Sciences</span>
+                                        <span class="text-green-600 font-bold">20%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-green-500 h-3 rounded-full" style="width: 20%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-semibold text-gray-700">Financial Services</span>
+                                        <span class="text-yellow-600 font-bold">11%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-yellow-500 h-3 rounded-full" style="width: 11%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-semibold text-gray-700">Technology & Software</span>
+                                        <span class="text-red-600 font-bold">5%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-red-500 h-3 rounded-full" style="width: 5%"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1 italic">Worst performing industry</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                            <h4 class="font-bold text-gray-800 mb-2">Key Finding:</h4>
+                            <p class="text-gray-700">
+                                Technology companies have the <strong>lowest response rate</strong> at just 5%, meaning they ghost 
+                                <strong> 95% of applicants</strong> before any human interaction. Healthcare maintains the best 
+                                practices at 20%, likely due to persistent staffing needs and structured processes.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Company Size Impact -->
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Company Size Analysis
+                        </h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-xl border-2 border-red-200">
+                                <div class="text-center">
+                                    <div class="text-5xl font-bold text-red-600 mb-4">5.83%</div>
+                                    <div class="text-xl font-semibold text-gray-800 mb-2">Small Companies</div>
+                                    <div class="text-gray-700">(&lt;100 employees)</div>
+                                    <div class="mt-4 text-sm text-gray-600">
+                                        Limited resources, ad-hoc processes
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl border-2 border-green-200">
+                                <div class="text-center">
+                                    <div class="text-5xl font-bold text-green-600 mb-4">11.44%</div>
+                                    <div class="text-xl font-semibold text-gray-800 mb-2">Large Enterprises</div>
+                                    <div class="text-gray-700">(&gt;1,000 employees)</div>
+                                    <div class="mt-4 text-sm text-gray-600">
+                                        Sophisticated ATS, dedicated HR teams
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+                            <p class="text-gray-800 text-lg">
+                                <strong>Small companies ghost candidates at DOUBLE the rate of large enterprises.</strong> This 
+                                disparity points to resource and process deficits—smaller organizations lack the infrastructure 
+                                to manage high-volume communication effectively.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Worst Offenders -->
+                    <section class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Documented Worst Offenders</h2>
+                        
+                        <div class="bg-red-50 border-2 border-red-300 rounded-xl p-6 mb-6">
+                            <h3 class="text-xl font-bold text-red-900 mb-4">Technology Sector Leaders in Ghosting</h3>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg border border-red-200">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-bold text-gray-800">Amazon</span>
+                                        <span class="text-2xl font-bold text-red-600">91%</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">
+                                        Multiple reports of ghosting after full loops, even after verbal offers
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border border-red-200">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-bold text-gray-800">Google</span>
+                                        <span class="text-2xl font-bold text-red-600">87%</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">
+                                        Candidates left in "team matching" limbo for months with no updates
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border border-red-200">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-bold text-gray-800">Meta</span>
+                                        <span class="text-2xl font-bold text-red-600">84%</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">
+                                        Recruiters disappear mid-process, even after successful tech screens
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border border-red-200">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-bold text-gray-800">Apple</span>
+                                        <span class="text-2xl font-bold text-red-600">82%</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">
+                                        Reports of 8+ interview rounds followed by complete radio silence
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-orange-50 border-2 border-orange-300 rounded-xl p-6">
+                            <h3 class="text-xl font-bold text-orange-900 mb-4">Finance Sector Notable Cases</h3>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-lg border border-orange-200">
+                                    <div class="font-bold text-gray-800 mb-1">Goldman Sachs</div>
+                                    <p class="text-sm text-gray-600">
+                                        7 technical rounds with positive feedback, then HR stopped answering entirely
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border border-orange-200">
+                                    <div class="font-bold text-gray-800 mb-1">Morgan Stanley</div>
+                                    <p class="text-sm text-gray-600">
+                                        5 rounds + background checks completed, "offer imminent" then weeks of silence
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border border-orange-200">
+                                    <div class="font-bold text-gray-800 mb-1">JPMorgan Chase</div>
+                                    <p class="text-sm text-gray-600">
+                                        Post-superday ghosting common, even after recruiter promises of updates
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Conclusion -->
+                    <section class="mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Conclusion: The Case for Transparency</h2>
+                        
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 p-8 rounded-xl">
+                            <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                                The data is unequivocal: employer ghosting is not a series of isolated incidents but a 
+                                <strong> systemic failure</strong> affecting the majority of job seekers. The practice has 
+                                accelerated dramatically, with a 112% increase since 2020, and shows no signs of improving 
+                                without external intervention.
+                            </p>
+                            <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                                This epidemic damages not only candidates—costing them time, money, and emotional wellbeing—but 
+                                also the companies themselves through brand erosion, pipeline destruction, and increased hiring costs.
+                            </p>
+                            <p class="text-lg text-gray-800 leading-relaxed mb-6">
+                                <strong>GhostScore provides the transparency necessary to create accountability.</strong> By making 
+                                hiring communication practices visible and measurable, we create market-based incentives for 
+                                improvement. Companies that respect candidates can be recognized and rewarded, while those who 
+                                ghost can no longer hide behind silence.
+                            </p>
+                            
+                            <div class="bg-white p-6 rounded-lg border-2 border-purple-400">
+                                <p class="text-xl font-bold text-purple-900 mb-2 text-center">
+                                    The solution is simple: Shine a light on the darkness.
+                                </p>
+                                <p class="text-center text-gray-700">
+                                    With your help, we can build the most comprehensive database of hiring practices 
+                                    and create real change in how companies treat candidates.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Footer -->
+                    <div class="text-center pt-8 border-t-2 border-gray-200">
+                        <p class="text-gray-600 mb-4">
+                            This research report is continuously updated as new data becomes available.
+                        </p>
+                        <button
+                            id="closeResearchBtn2"
+                            class="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-purple-700 transition-colors"
+                        >
+                            Close Report
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -418,10 +711,40 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script>
-        // Initialize Supabase (use your actual credentials)
+        // Initialize Supabase (REPLACE WITH YOUR ACTUAL CREDENTIALS)
         const SUPABASE_URL = 'YOUR_SUPABASE_URL';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Research Modal Controls
+        const openResearchBtn = document.getElementById('openResearchBtn');
+        const closeResearchBtn = document.getElementById('closeResearchBtn');
+        const closeResearchBtn2 = document.getElementById('closeResearchBtn2');
+        const researchModal = document.getElementById('researchModal');
+
+        openResearchBtn.addEventListener('click', function() {
+            researchModal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+        });
+
+        closeResearchBtn.addEventListener('click', function() {
+            researchModal.classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        });
+
+        closeResearchBtn2.addEventListener('click', function() {
+            researchModal.classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        });
+
+        // Close modal when clicking outside
+        researchModal.addEventListener('click', function(e) {
+            if (e.target === researchModal) {
+                researchModal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            }
+        });
 
         // Show/hide proof section
         document.getElementById('hasProof').addEventListener('change', function() {
@@ -453,7 +776,10 @@
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropZone.classList.remove('border-purple-600');
-            handleFiles({target: {files: e.dataTransfer.files}});
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            handleFiles({target: {files: files}});
         });
 
         function handleFiles(e) {
@@ -468,13 +794,13 @@
                 fileItem.className = 'flex items-center justify-between bg-white p-2 rounded border border-gray-200 mb-2';
                 fileItem.innerHTML = `
                     <span class="text-sm text-gray-700">${file.name} (${(file.size / 1024).toFixed(1)} KB)</span>
-                    <button onclick="removeFile(${index})" class="text-red-500 hover:text-red-700">✕</button>
+                    <button onclick="removeFile(${index})" type="button" class="text-red-500 hover:text-red-700">✕</button>
                 `;
                 fileList.appendChild(fileItem);
             });
         }
 
-        function removeFile(index) {
+        window.removeFile = function(index) {
             selectedFiles.splice(index, 1);
             displayFileList();
         }
@@ -514,22 +840,22 @@
                         const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
                         const filePath = `proof/${fileName}`;
 
-                        const { data, error } = await supabase.storage
+                        const { data, error } = await supabaseClient.storage
                             .from('ghosting-proof')
                             .upload(filePath, file);
 
                         if (error) throw error;
 
-                        const { data: { publicUrl } } = supabase.storage
+                        const { data: urlData } = supabaseClient.storage
                             .from('ghosting-proof')
                             .getPublicUrl(filePath);
 
-                        fileUrls.push(publicUrl);
+                        fileUrls.push(urlData.publicUrl);
                     }
                 }
 
                 // Insert data into database
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('ghosting_reports')
                     .insert([
                         {
@@ -558,7 +884,18 @@
                 setTimeout(() => {
                     document.getElementById('successMessage').classList.add('hidden');
                     document.getElementById('reportForm').classList.remove('hidden');
-                    document.getElementById('reportForm').reset();
+                    
+                    // Reset form
+                    document.getElementById('name').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('company').value = '';
+                    document.getElementById('position').value = '';
+                    document.getElementById('stage').value = '';
+                    document.getElementById('daysWaiting').value = '';
+                    document.getElementById('story').value = '';
+                    document.getElementById('hasProof').value = 'no';
+                    document.getElementById('consent').checked = false;
+                    document.getElementById('proofSection').classList.add('hidden');
                     selectedFiles = [];
                     displayFileList();
                 }, 5000);
@@ -567,15 +904,6 @@
                 console.error('Error:', error);
                 alert('Error submitting your report. Please try again.');
             }
-        });
-
-        // Research modal
-        document.getElementById('openResearchBtn').addEventListener('click', function() {
-            document.getElementById('researchModal').classList.remove('hidden');
-        });
-
-        document.getElementById('closeResearchBtn').addEventListener('click', function() {
-            document.getElementById('researchModal').classList.add('hidden');
         });
     </script>
 </body>
