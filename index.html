@@ -1260,6 +1260,12 @@
             <div id="track" class="tab-content">
                 <h2 style="margin-bottom: 30px;">Track Your Applications</h2>
                 
+                <!-- Track Success Message -->
+                <div class="success-message" id="trackSuccessMessage">
+                    <span>✓</span>
+                    <span id="trackSuccessText">Application tracked! We'll send you reminders based on this company's typical response time.</span>
+                </div>
+                
                 <form id="trackForm" onsubmit="handleTrackSubmit(event)">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div class="form-group">
@@ -1720,9 +1726,8 @@
         function handleTrackSubmit(event) {
             event.preventDefault();
             
-            const successMsg = document.getElementById('successMessage');
+            const successMsg = document.getElementById('trackSuccessMessage');
             successMsg.classList.add('show');
-            successMsg.querySelector('span:last-child').textContent = 'Application tracked! We\'ll send you reminders based on this company\'s typical response time.';
             
             document.getElementById('trackForm').reset();
             
@@ -1942,15 +1947,16 @@
                 
                 if (error) throw error;
                 
-                // Show success message
-                document.getElementById('successMessage').classList.add('show');
-                document.getElementById('successMessage').querySelector('span:last-child').textContent = 
+                // Show success message in the track section
+                const trackSuccessMsg = document.getElementById('trackSuccessMessage');
+                document.getElementById('trackSuccessText').textContent = 
                     `Application tracked! We'll send reminders to ${trackData.user_email} on days 14, 30, 47, and 60.`;
+                trackSuccessMsg.classList.add('show');
                 
                 document.getElementById('trackForm').reset();
                 
                 setTimeout(() => {
-                    document.getElementById('successMessage').classList.remove('show');
+                    trackSuccessMsg.classList.remove('show');
                 }, 5000);
             } catch (error) {
                 console.error('Error:', error);
@@ -1980,11 +1986,8 @@
                         details: c.details
                     }));
                     
-                    // Repopulate if we're on companies tab
-                    const companiesTab = document.getElementById('companies');
-                    if (companiesTab && companiesTab.classList.contains('active')) {
-                        populateCompanies();
-                    }
+                    // Populate top companies on initial load
+                    populateTopCompanies();
                 }
                 
                 // Update the report count
