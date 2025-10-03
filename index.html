@@ -24,7 +24,7 @@
                 </p>
                 
                 <!-- Research Report Button -->
-                <button id="openResearchBtn" class="inline-flex items-center gap-2 bg-white text-purple-600 font-semibold py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg cursor-pointer">
+                <button onclick="document.getElementById('researchModal').classList.remove('hidden'); document.body.classList.add('modal-open');" class="inline-flex items-center gap-2 bg-white text-purple-600 font-semibold py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg cursor-pointer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                     </svg>
@@ -385,7 +385,7 @@
         <div class="min-h-screen px-4 py-8">
             <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl relative">
                 <!-- Close button -->
-                <button id="closeResearchBtn" class="sticky top-4 right-4 float-right bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors z-10">
+                <button onclick="document.getElementById('researchModal').classList.add('hidden'); document.body.classList.remove('modal-open');" class="sticky top-4 right-4 float-right bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors z-10">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -696,7 +696,7 @@
                             This research report is continuously updated as new data becomes available.
                         </p>
                         <button
-                            id="closeResearchBtn2"
+                            onclick="document.getElementById('researchModal').classList.add('hidden'); document.body.classList.remove('modal-open');"
                             class="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-purple-700 transition-colors"
                         >
                             Close Report
