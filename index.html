@@ -98,6 +98,109 @@
             color: white !important;
         }
         
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 102;
+        }
+        
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #667eea;
+            margin: 4px 0;
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 101;
+            padding: 80px 30px 30px;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .mobile-menu button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 16;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu button:hover {
+            background: #f7fafc;
+            color: #667eea;
+        }
+        
+        .mobile-menu .nav-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .mobile-menu .nav-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
         .main-content {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 20px;
@@ -240,6 +343,7 @@
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
+            white-space: nowrap;
         }
         
         .tab-button.active {
@@ -283,6 +387,28 @@
             margin-bottom: 8px;
         }
         
+        /* Checkbox labels specifically */
+        label input[type="checkbox"] {
+            margin-right: 8px;
+            vertical-align: middle;
+            position: relative;
+            top: -1px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            font-weight: normal;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
         input, select, textarea {
             width: 100%;
             padding: 12px 15px;
@@ -290,6 +416,10 @@
             border-radius: 10px;
             font-size: 16px;
             transition: border-color 0.3s;
+        }
+        
+        input[type="checkbox"] {
+            width: auto;
         }
         
         input:focus, select:focus, textarea:focus {
@@ -346,10 +476,73 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 20px;
+            z-index: 1;
         }
         
         .search-bar input {
             padding-left: 45px;
+        }
+        
+        /* Search Suggestions Dropdown */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 10;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-suggestions.show {
+            display: block;
+        }
+        
+        .suggestion-item {
+            padding: 12px 15px 12px 45px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+        
+        .suggestion-item:hover {
+            background: #f7fafc;
+        }
+        
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-company {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .suggestion-name {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .suggestion-stats {
+            font-size: 12px;
+            color: #718096;
+        }
+        
+        .suggestion-grade {
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
         }
         
         .company-grid {
@@ -538,30 +731,39 @@
             }
             
             .header-content {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
             }
             
             .logo {
                 font-size: 24px;
             }
             
+            /* Hide regular nav and show hamburger on mobile */
             nav {
-                width: 100%;
-                justify-content: center;
-                gap: 15px;
-                flex-wrap: wrap;
+                display: none;
             }
             
-            nav button {
-                font-size: 14px;
-                padding: 8px 12px;
+            .hamburger {
+                display: flex;
             }
+            
+            /* Keep rest of mobile styles as they were */
             
             .hero h1 {
-                font-size: 28px;
+                font-size: 26px;
                 padding: 0 10px;
+                line-height: 1.3;
+            }
+            
+            .hero h1 .highlight {
+                display: block;
+                margin-bottom: 8px;
+            }
+            
+            .hero h1 br {
+                display: none;
             }
             
             .hero p {
@@ -598,15 +800,29 @@
             }
             
             .tabs {
-                flex-wrap: wrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
                 gap: 5px;
+                padding-bottom: 14px;
                 margin-bottom: 20px;
+            }
+            
+            .tabs::-webkit-scrollbar {
+                display: none;
             }
             
             .tab-button {
                 font-size: 14px;
-                padding: 8px 12px;
-                flex: 1 1 45%;
+                padding: 10px 16px;
+                flex-shrink: 0;
+                min-width: fit-content;
+            }
+            
+            .tab-button.active::after {
+                bottom: -14px;
             }
             
             .company-grid {
@@ -662,11 +878,23 @@
             input, select, textarea {
                 font-size: 16px; /* Prevents zoom on iOS */
             }
+            
+            /* Ensure checkboxes are properly sized on mobile */
+            .checkbox-label {
+                font-size: 14px;
+            }
+            
+            .checkbox-label input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                margin-top: 2px;
+            }
         }
         
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 24px;
+                font-size: 22px;
+                line-height: 1.4;
             }
             
             .stats-bar {
@@ -696,8 +924,26 @@
                 <button onclick="scrollToAbout()">How It Works</button>
                 <button class="nav-btn-primary" onclick="scrollToEmployers()">For Employers</button>
             </nav>
+            
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button onclick="mobileNavigate('report')">Report a Ghost</button>
+        <button onclick="mobileNavigate('companies')">Company Scores</button>
+        <button onclick="mobileNavigate('about')">How It Works</button>
+        <button class="nav-btn-primary" onclick="mobileNavigate('employers')">For Employers</button>
+    </div>
     
     <div class="container">
         <div class="main-content">
@@ -726,7 +972,7 @@
                     </div>
                 </div>
                 
-                <div style="display: flex; gap: 20px; justify-content: center;">
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn btn-primary" onclick="scrollToCompanies()">Check Any Company's Score</button>
                     <button class="btn btn-secondary" onclick="scrollToReport()">Report Who Ghosted You</button>
                 </div>
@@ -884,16 +1130,16 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>
+                        <label class="checkbox-label">
                             <input type="checkbox" id="anonymous" checked>
-                            Report anonymously (your email is never shown publicly)
+                            <span>Report anonymously (your email is never shown publicly)</span>
                         </label>
                     </div>
                     
                     <div class="form-group">
-                        <label>
+                        <label class="checkbox-label">
                             <input type="checkbox" id="consent" required>
-                            I confirm this report is truthful and based on my real experience *
+                            <span>I confirm this report is truthful and based on my real experience *</span>
                         </label>
                     </div>
                     
@@ -907,9 +1153,13 @@
                 
                 <div class="search-bar">
                     <span class="search-icon">🔍</span>
-                    <input type="text" id="companySearch" placeholder="Search companies..." onkeyup="filterCompanies()">
+                    <input type="text" id="companySearch" placeholder="Search companies..." onkeyup="filterCompanies()" onfocus="showSuggestions()" autocomplete="off">
+                    <div class="search-suggestions" id="searchSuggestions">
+                        <!-- Suggestions will populate here -->
+                    </div>
                 </div>
                 
+                <h3 style="margin-top: 30px; margin-bottom: 20px; color: #2d3748;">Top Reported Companies</h3>
                 <div class="company-grid" id="companyGrid">
                     <!-- Companies populated by JavaScript -->
                 </div>
@@ -1090,6 +1340,44 @@
             {name: "Disney", score: "F", ghostRate: 76, avgDays: 38, reports: 345, details: "Recruiter no-shows twice"}
         ];
         
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const hamburger = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+        }
+        
+        // Mobile Navigation Function
+        function mobileNavigate(section) {
+            // Close mobile menu
+            toggleMobileMenu();
+            
+            // Navigate to section
+            if (section === 'report') {
+                scrollToReport();
+            } else if (section === 'companies') {
+                scrollToCompanies();
+            } else if (section === 'about') {
+                scrollToAbout();
+            } else if (section === 'employers') {
+                scrollToEmployers();
+            }
+        }
+        
+        // Close mobile menu when clicking escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+        
         // Tab switching - mimicking original working version
         function switchTab(event, tabName) {
             document.querySelectorAll('.tab-button').forEach(tab => {
@@ -1102,8 +1390,8 @@
             event.target.classList.add('active');
             document.getElementById(tabName).classList.add('active');
             
-            if (tabName === 'companies' && document.getElementById('companyGrid').innerHTML === '') {
-                populateCompanies();
+            if (tabName === 'companies') {
+                populateTopCompanies();
             }
         }
         
@@ -1132,9 +1420,7 @@
             document.querySelectorAll('.tab-button')[1].classList.add('active'); // Second tab button
             document.getElementById('companies').classList.add('active');
             
-            if (document.getElementById('companyGrid').innerHTML === '') {
-                populateCompanies();
-            }
+            populateTopCompanies();
             
             document.getElementById('companies').scrollIntoView({ behavior: 'smooth' });
         }
@@ -1165,7 +1451,44 @@
             document.getElementById('employers').scrollIntoView({ behavior: 'smooth' });
         }
         
-        // Populate companies
+        // Populate top 6 companies by default
+        function populateTopCompanies() {
+            const grid = document.getElementById('companyGrid');
+            if (!grid) return;
+            
+            // Sort by reports and get top 6
+            const topCompanies = [...companies].sort((a, b) => b.reports - a.reports).slice(0, 6);
+            
+            grid.innerHTML = topCompanies.map(company => `
+                <div class="company-card">
+                    <div class="company-header">
+                        <h3>${company.name}</h3>
+                        <span class="grade grade-${company.score ? company.score.toLowerCase() : 'pending'}">
+                            ${company.score || '?'}
+                        </span>
+                    </div>
+                    <div class="company-stats">
+                        <div class="stat-row">
+                            <span>Ghost Rate:</span>
+                            <span style="color: ${company.ghostRate > 70 ? '#c53030' : '#2d3748'}">${company.ghostRate}%</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Avg Response:</span>
+                            <span>${company.avgDays} days</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Reports:</span>
+                            <span>${company.reports} ${company.verifiedReports ? `(${company.verifiedReports} ✓)` : ''}</span>
+                        </div>
+                        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #e2e8f0;">
+                            <small style="color: #718096; font-style: italic;">"${company.details}"</small>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Populate all companies (formerly populateCompanies)
         function populateCompanies() {
             const grid = document.getElementById('companyGrid');
             if (!grid) return;
@@ -1199,12 +1522,52 @@
             `).join('');
         }
         
-        // Filter companies
+        // Show suggestions dropdown
+        function showSuggestions() {
+            const input = document.getElementById('companySearch');
+            const suggestions = document.getElementById('searchSuggestions');
+            const searchValue = input.value.toLowerCase();
+            
+            // Filter companies based on search
+            const filtered = searchValue 
+                ? companies.filter(c => c.name.toLowerCase().includes(searchValue))
+                : companies.slice(0, 8); // Show top 8 when no search term
+            
+            if (filtered.length > 0) {
+                suggestions.innerHTML = filtered.map(company => `
+                    <div class="suggestion-item" onclick="selectCompany('${company.name}')">
+                        <div class="suggestion-company">
+                            <span class="suggestion-name">${company.name}</span>
+                            <span class="suggestion-stats">${company.reports} reports • ${company.ghostRate}% ghost rate</span>
+                        </div>
+                        <span class="suggestion-grade grade-${company.score ? company.score.toLowerCase() : 'pending'}">
+                            ${company.score || '?'}
+                        </span>
+                    </div>
+                `).join('');
+                suggestions.classList.add('show');
+            } else {
+                suggestions.classList.remove('show');
+            }
+        }
+        
+        // Filter companies with suggestions
         function filterCompanies() {
             const search = document.getElementById('companySearch').value.toLowerCase();
+            const grid = document.getElementById('companyGrid');
+            
+            // Update suggestions
+            showSuggestions();
+            
+            // If search is empty, show top 6
+            if (search === '') {
+                populateTopCompanies();
+                return;
+            }
+            
+            // Filter and show matching companies
             const filtered = companies.filter(c => c.name.toLowerCase().includes(search));
             
-            const grid = document.getElementById('companyGrid');
             grid.innerHTML = filtered.map(company => `
                 <div class="company-card">
                     <div class="company-header">
@@ -1232,7 +1595,26 @@
                     </div>
                 </div>
             `).join('');
+            
+            // If no results, show message
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="text-align: center; padding: 40px; color: #718096;">No companies found matching your search.</div>';
+            }
         }
+        
+        // Select company from suggestions
+        function selectCompany(companyName) {
+            document.getElementById('companySearch').value = companyName;
+            document.getElementById('searchSuggestions').classList.remove('show');
+            filterCompanies();
+        }
+        
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-bar')) {
+                document.getElementById('searchSuggestions').classList.remove('show');
+            }
+        });
         
         // Form handlers
         function handleSubmit(event) {
@@ -1271,7 +1653,51 @@
             // Ensure report tab is active on load
             document.getElementById('report').classList.add('active');
             document.querySelector('.tab-button').classList.add('active');
+            
+            // Adjust placeholders for mobile
+            adjustPlaceholdersForMobile();
+            
+            // Re-adjust on window resize
+            window.addEventListener('resize', adjustPlaceholdersForMobile);
         });
+        
+        // Adjust placeholder text based on screen size
+        function adjustPlaceholdersForMobile() {
+            const isMobile = window.innerWidth <= 768;
+            
+            // Report form placeholders
+            const companyInput = document.getElementById('company');
+            const positionInput = document.getElementById('position');
+            const daysInput = document.getElementById('days');
+            const detailsTextarea = document.getElementById('details');
+            const emailInput = document.getElementById('email');
+            
+            // Track form placeholders
+            const trackCompanyInput = document.getElementById('trackCompany');
+            const trackEmailInput = document.getElementById('trackEmail');
+            
+            if (isMobile) {
+                // Shorter placeholders for mobile
+                if (companyInput) companyInput.placeholder = "Company name";
+                if (positionInput) positionInput.placeholder = "Job title";
+                if (daysInput) daysInput.placeholder = "Days waiting";
+                if (detailsTextarea) detailsTextarea.placeholder = "Tell your story...";
+                if (emailInput) emailInput.placeholder = "your@email.com";
+                
+                if (trackCompanyInput) trackCompanyInput.placeholder = "Company";
+                if (trackEmailInput) trackEmailInput.placeholder = "Your email";
+            } else {
+                // Full placeholders for desktop
+                if (companyInput) companyInput.placeholder = "e.g., Amazon, Google, Tesla";
+                if (positionInput) positionInput.placeholder = "e.g., Software Engineer, Marketing Manager";
+                if (daysInput) daysInput.placeholder = "How many days of silence?";
+                if (detailsTextarea) detailsTextarea.placeholder = "e.g., They said I was a 'perfect fit' then never responded. Interviewer no-showed twice. Got verbal offer then silence...";
+                if (emailInput) emailInput.placeholder = "your@email.com";
+                
+                if (trackCompanyInput) trackCompanyInput.placeholder = "Company name";
+                if (trackEmailInput) trackEmailInput.placeholder = "We'll remind you when to follow up";
+            }
+        }
     </script>
     
     <!-- Supabase Integration -->
