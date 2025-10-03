@@ -971,11 +971,103 @@
                         <div class="stat-label">Average Cost</div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Report Form Section - Moved to top for better conversion -->
+            <div style="background: linear-gradient(135deg, #f7fafc 0%, #ffffff 100%); border-radius: 20px; padding: 40px; margin: 40px 0; border: 2px solid rgba(102, 126, 234, 0.1);">
+                <h2 style="text-align: center; margin-bottom: 10px; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Report Your Ghost Story</h2>
+                <p style="text-align: center; color: #718096; margin-bottom: 30px;">Takes 30 seconds. Helps thousands. 100% anonymous.</p>
                 
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="scrollToCompanies()">Check Any Company's Score</button>
-                    <button class="btn btn-secondary" onclick="scrollToReport()">Report Who Ghosted You</button>
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <span>✓</span>
+                    <span>Thank you! Your report helps thousands of job seekers. You're making ghosting visible.</span>
                 </div>
+                
+                <form id="reportForm" onsubmit="handleSubmit(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label for="company">Company Name *</label>
+                            <input type="text" id="company" required placeholder="e.g., Amazon, Google, Tesla">
+                        </div>
+                        <div class="form-group">
+                            <label for="position">Position Applied For</label>
+                            <input type="text" id="position" placeholder="e.g., Software Engineer, Marketing Manager">
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label for="stage">Where Did They Ghost You? *</label>
+                            <select id="stage" required>
+                                <option value="">Select stage...</option>
+                                <option value="application">After Application</option>
+                                <option value="phone">After Phone Screen</option>
+                                <option value="tech">After Technical Interview</option>
+                                <option value="onsite">After Onsite/Final Round</option>
+                                <option value="offer">After Verbal Offer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="days">Days Waiting</label>
+                            <input type="number" id="days" placeholder="How many days of silence?">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="details">What Happened? (Optional but helps others)</label>
+                        <textarea id="details" placeholder="e.g., They said I was a 'perfect fit' then never responded. Interviewer no-showed twice. Got verbal offer then silence..."></textarea>
+                    </div>
+                    
+                    <!-- New Proof Upload Section -->
+                    <div style="background: #f0f9ff; border: 2px dashed #667eea; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📸 Add Proof for Verified Badge (Optional)</h4>
+                        <p style="font-size: 14px; color: #718096; margin-bottom: 15px;">
+                            Upload screenshots of emails, messages, or calendar invites. Verified reports carry 2x weight and get a ✓ badge.
+                        </p>
+                        <div class="form-group">
+                            <label for="proof">Upload Proof (PNG, JPG, PDF - Max 5MB)</label>
+                            <input type="file" id="proof" accept="image/*,.pdf" style="padding: 10px;">
+                            <small style="color: #718096;">We'll blur personal info before display</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="proofType">What kind of proof is this?</label>
+                            <select id="proofType">
+                                <option value="">Select proof type...</option>
+                                <option value="email">Email communication</option>
+                                <option value="linkedin">LinkedIn message</option>
+                                <option value="calendar">Interview calendar invite</option>
+                                <option value="offer">Offer letter / verbal offer email</option>
+                                <option value="portal">Application portal screenshot</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Your Email (Optional - for verification badge)</label>
+                        <input type="email" id="email" placeholder="your@email.com">
+                        <small style="color: #718096;">We'll send a verification link. Verified users build trust score over time.</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="anonymous" checked>
+                            <span>Report anonymously (your email is never shown publicly)</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="consent" required>
+                            <span>I confirm this report is truthful and based on my real experience *</span>
+                        </label>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn btn-primary" style="font-size: 18px; padding: 16px 40px;">Submit Ghost Report 👻</button>
+                    </div>
+                </form>
             </div>
             
             <!-- Wall of Shame -->
@@ -1045,8 +1137,7 @@
             
             <!-- Tabs -->
             <div class="tabs">
-                <button class="tab-button active" onclick="switchTab(event, 'report')">Report a Ghost</button>
-                <button class="tab-button" onclick="switchTab(event, 'companies')">Company Scores</button>
+                <button class="tab-button active" onclick="switchTab(event, 'companies')">Company Scores</button>
                 <button class="tab-button" onclick="switchTab(event, 'track')">Track Applications</button>
                 <button class="tab-button" onclick="switchTab(event, 'about')">How It Works</button>
                 <button class="tab-button" onclick="switchTab(event, 'employers')">For Employers</button>
@@ -1358,7 +1449,7 @@
             
             // Navigate to section
             if (section === 'report') {
-                scrollToReport();
+                scrollToReport(); // Now scrolls to form at top
             } else if (section === 'companies') {
                 scrollToCompanies();
             } else if (section === 'about') {
@@ -1397,16 +1488,8 @@
         
         // Scroll functions that work like the original
         function scrollToReport() {
-            document.querySelectorAll('.tab-button').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            document.querySelector('.tab-button').classList.add('active'); // First tab button
-            document.getElementById('report').classList.add('active');
-            document.getElementById('report').scrollIntoView({ behavior: 'smooth' });
+            // Scroll to the report form at the top
+            document.getElementById('reportForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
         function scrollToCompanies() {
@@ -1417,7 +1500,7 @@
                 content.classList.remove('active');
             });
             
-            document.querySelectorAll('.tab-button')[1].classList.add('active'); // Second tab button
+            document.querySelector('.tab-button').classList.add('active'); // First tab button (companies)
             document.getElementById('companies').classList.add('active');
             
             populateTopCompanies();
@@ -1433,7 +1516,7 @@
                 content.classList.remove('active');
             });
             
-            document.querySelectorAll('.tab-button')[3].classList.add('active'); // Fourth tab button (About/How It Works)
+            document.querySelectorAll('.tab-button')[2].classList.add('active'); // Third tab button (About/How It Works)
             document.getElementById('about').classList.add('active');
             document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
         }
@@ -1446,7 +1529,7 @@
                 content.classList.remove('active');
             });
             
-            document.querySelectorAll('.tab-button')[4].classList.add('active'); // Fifth tab button (For Employers)
+            document.querySelectorAll('.tab-button')[3].classList.add('active'); // Fourth tab button (For Employers)
             document.getElementById('employers').classList.add('active');
             document.getElementById('employers').scrollIntoView({ behavior: 'smooth' });
         }
@@ -1650,9 +1733,12 @@
         
         // Initialize on DOM ready
         document.addEventListener('DOMContentLoaded', function() {
-            // Ensure report tab is active on load
-            document.getElementById('report').classList.add('active');
+            // Ensure companies tab is active on load
+            document.getElementById('companies').classList.add('active');
             document.querySelector('.tab-button').classList.add('active');
+            
+            // Populate top companies on load
+            populateTopCompanies();
             
             // Adjust placeholders for mobile
             adjustPlaceholdersForMobile();
