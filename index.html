@@ -752,7 +752,7 @@
             /* Keep rest of mobile styles as they were */
             
             .hero h1 {
-                font-size: 26px;
+                font-size: 24px;
                 padding: 0 10px;
                 line-height: 1.3;
             }
@@ -893,8 +893,8 @@
         
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 22px;
-                line-height: 1.4;
+                font-size: 20px;
+                line-height: 1.35;
             }
             
             .stats-bar {
@@ -1814,16 +1814,24 @@
             const trackCompanyInput = document.getElementById('trackCompany');
             const trackEmailInput = document.getElementById('trackEmail');
             
+            // Select dropdown options
+            const stageSelect = document.getElementById('stage');
+            
             if (isMobile) {
-                // Shorter placeholders for mobile
-                if (companyInput) companyInput.placeholder = "Company name";
-                if (positionInput) positionInput.placeholder = "Job title";
-                if (daysInput) daysInput.placeholder = "Days waiting";
+                // Remove placeholders on mobile for cleaner look
+                if (companyInput) companyInput.placeholder = "";
+                if (positionInput) positionInput.placeholder = "";
+                if (daysInput) daysInput.placeholder = "";
                 if (detailsTextarea) detailsTextarea.placeholder = "Tell your story...";
-                if (emailInput) emailInput.placeholder = "your@email.com";
+                if (emailInput) emailInput.placeholder = "";
                 
-                if (trackCompanyInput) trackCompanyInput.placeholder = "Company";
-                if (trackEmailInput) trackEmailInput.placeholder = "Your email";
+                if (trackCompanyInput) trackCompanyInput.placeholder = "";
+                if (trackEmailInput) trackEmailInput.placeholder = "";
+                
+                // Shorten select option text
+                if (stageSelect && stageSelect.options[0]) {
+                    stageSelect.options[0].text = "Select";
+                }
             } else {
                 // Full placeholders for desktop
                 if (companyInput) companyInput.placeholder = "e.g., Amazon, Google, Tesla";
@@ -1834,6 +1842,11 @@
                 
                 if (trackCompanyInput) trackCompanyInput.placeholder = "Company name";
                 if (trackEmailInput) trackEmailInput.placeholder = "We'll remind you when to follow up";
+                
+                // Full select option text
+                if (stageSelect && stageSelect.options[0]) {
+                    stageSelect.options[0].text = "Select stage...";
+                }
             }
         }
     </script>
