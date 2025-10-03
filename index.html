@@ -1497,7 +1497,12 @@
             });
             
             event.target.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
+            
+            // Only activate tabs that actually exist
+            const tabElement = document.getElementById(tabName);
+            if (tabElement) {
+                tabElement.classList.add('active');
+            }
             
             if (tabName === 'companies') {
                 populateTopCompanies();
@@ -1506,8 +1511,11 @@
         
         // Scroll functions that work like the original
         function scrollToReport() {
-            // Scroll to the report form at the top
-            document.getElementById('reportForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Scroll to the report form at the top (not a tab anymore)
+            const reportForm = document.getElementById('reportForm');
+            if (reportForm) {
+                reportForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
         
         function scrollToCompanies() {
@@ -1753,9 +1761,24 @@
         
         // Initialize on DOM ready
         document.addEventListener('DOMContentLoaded', function() {
+            // CRITICAL: Remove any report tab divs that shouldn't exist
+            const reportTab = document.getElementById('report');
+            if (reportTab) {
+                reportTab.remove();
+                console.log('Removed phantom report tab');
+            }
+            
             // Ensure companies tab is active on load
-            document.getElementById('companies').classList.add('active');
-            document.querySelector('.tab-button').classList.add('active');
+            const companiesTab = document.getElementById('companies');
+            if (companiesTab) {
+                companiesTab.classList.add('active');
+            }
+            
+            // Ensure first tab button is active
+            const firstTabButton = document.querySelector('.tab-button');
+            if (firstTabButton) {
+                firstTabButton.classList.add('active');
+            }
             
             // Populate top companies on load immediately
             populateTopCompanies();
@@ -1765,6 +1788,15 @@
             
             // Re-adjust on window resize
             window.addEventListener('resize', adjustPlaceholdersForMobile);
+            
+            // Double-check after a brief delay to remove any late-appearing report tabs
+            setTimeout(() => {
+                const lateReportTab = document.getElementById('report');
+                if (lateReportTab) {
+                    lateReportTab.remove();
+                    console.log('Removed late-appearing report tab');
+                }
+            }, 100);
         });
         
         // Adjust placeholder text based on screen size
