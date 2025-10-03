@@ -685,15 +685,15 @@
 <body>
     <header>
         <div class="header-content">
-            <div class="logo" onclick="showTab('report')">
+            <div class="logo" onclick="scrollToReport()">
                 <span class="ghost-icon">👻</span>
                 GhostScore
             </div>
             <nav>
-                <button onclick="showTab('report')">Report a Ghost</button>
-                <button onclick="showTab('companies')">Company Scores</button>
-                <button onclick="showTab('about')">How It Works</button>
-                <button class="nav-btn-primary" onclick="alert('Employer section coming soon!')">For Employers</button>
+                <button onclick="scrollToReport()">Report a Ghost</button>
+                <button onclick="scrollToCompanies()">Company Scores</button>
+                <button onclick="scrollToAbout()">How It Works</button>
+                <button class="nav-btn-primary" onclick="scrollToEmployers()">For Employers</button>
             </nav>
         </div>
     </header>
@@ -726,8 +726,8 @@
                 </div>
                 
                 <div style="display: flex; gap: 20px; justify-content: center;">
-                    <button class="btn btn-primary" onclick="showTab('companies')">Check Any Company's Score</button>
-                    <button class="btn btn-secondary" onclick="showTab('report')">Report Who Ghosted You</button>
+                    <button class="btn btn-primary" onclick="scrollToCompanies()">Check Any Company's Score</button>
+                    <button class="btn btn-secondary" onclick="scrollToReport()">Report Who Ghosted You</button>
                 </div>
             </div>
             
@@ -798,10 +798,11 @@
             
             <!-- Tabs -->
             <div class="tabs">
-                <button class="tab-button active" onclick="showTab('report')">Report a Ghost</button>
-                <button class="tab-button" onclick="showTab('companies')">Company Scores</button>
-                <button class="tab-button" onclick="showTab('track')">Track Applications</button>
-                <button class="tab-button" onclick="showTab('about')">How It Works</button>
+                <button class="tab-button active" onclick="switchTab(event, 'report')">Report a Ghost</button>
+                <button class="tab-button" onclick="switchTab(event, 'companies')">Company Scores</button>
+                <button class="tab-button" onclick="switchTab(event, 'track')">Track Applications</button>
+                <button class="tab-button" onclick="switchTab(event, 'about')">How It Works</button>
+                <button class="tab-button" onclick="switchTab(event, 'employers')">For Employers</button>
             </div>
             
             <!-- Success Message -->
@@ -939,7 +940,85 @@
                         <p style="font-size: 20px; color: #667eea; font-weight: 600; margin-bottom: 20px;">
                             "The only ghosts this Halloween should be in costumes."
                         </p>
-                        <button class="btn btn-primary" onclick="showTab('report')">Report Your Ghost Story</button>
+                        <button class="btn btn-primary" onclick="scrollToReport()">Report Your Ghost Story</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Employers Tab -->
+            <div id="employers" class="tab-content">
+                <h2 style="margin-bottom: 30px;">For Employers: Build Your Reputation</h2>
+                
+                <div style="max-width: 800px;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-bottom: 40px; text-align: center;">
+                        <h3 style="font-size: 28px; margin-bottom: 15px;">Transform Your Hiring Reputation</h3>
+                        <p style="font-size: 18px; opacity: 0.95;">Good hiring practices attract better talent. Show candidates you value their time.</p>
+                    </div>
+                    
+                    <h3 style="margin: 30px 0 15px; color: #667eea;">Why Your Company Needs a Good GhostScore</h3>
+                    <ul style="line-height: 1.8; color: #4a5568; padding-left: 20px; margin-bottom: 30px;">
+                        <li><strong>92% of candidates</strong> check company reviews before applying</li>
+                        <li><strong>Top talent avoids</strong> companies with poor communication records</li>
+                        <li><strong>Bad hiring reputation</strong> increases time-to-hire by 2.5x</li>
+                        <li><strong>Companies with A ratings</strong> receive 3x more quality applications</li>
+                    </ul>
+                    
+                    <h3 style="margin: 30px 0 15px; color: #667eea;">Pricing Plans</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 30px;">
+                        <div style="background: #f7fafc; padding: 25px; border-radius: 15px; border: 2px solid #e2e8f0;">
+                            <h4 style="color: #667eea; margin-bottom: 10px;">Basic Claim</h4>
+                            <p style="font-size: 32px; font-weight: bold; color: #2d3748; margin: 15px 0;">$99<span style="font-size: 16px; font-weight: normal;">/month</span></p>
+                            <ul style="color: #4a5568; font-size: 14px; line-height: 2;">
+                                <li>✓ Claim your company profile</li>
+                                <li>✓ Respond to reports</li>
+                                <li>✓ Display commitment badge</li>
+                                <li>✓ Basic analytics</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 15px; color: white; position: relative;">
+                            <span style="position: absolute; top: -10px; right: 20px; background: #ffeb3b; color: #333; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">POPULAR</span>
+                            <h4 style="margin-bottom: 10px;">Professional</h4>
+                            <p style="font-size: 32px; font-weight: bold; margin: 15px 0;">$299<span style="font-size: 16px; font-weight: normal;">/month</span></p>
+                            <ul style="font-size: 14px; line-height: 2; opacity: 0.95;">
+                                <li>✓ Everything in Basic</li>
+                                <li>✓ Priority verification badge</li>
+                                <li>✓ Custom response commitments</li>
+                                <li>✓ Candidate feedback tools</li>
+                                <li>✓ Quarterly reputation reports</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: #f7fafc; padding: 25px; border-radius: 15px; border: 2px solid #e2e8f0;">
+                            <h4 style="color: #667eea; margin-bottom: 10px;">Enterprise</h4>
+                            <p style="font-size: 32px; font-weight: bold; color: #2d3748; margin: 15px 0;">Custom</p>
+                            <ul style="color: #4a5568; font-size: 14px; line-height: 2;">
+                                <li>✓ Everything in Professional</li>
+                                <li>✓ API integration</li>
+                                <li>✓ Multi-location support</li>
+                                <li>✓ Custom reporting</li>
+                                <li>✓ Dedicated account manager</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin: 30px 0 15px; color: #667eea;">How It Works</h3>
+                    <ol style="line-height: 1.8; color: #4a5568; padding-left: 20px; margin-bottom: 30px;">
+                        <li><strong>Claim Your Profile:</strong> Verify your company and take control of your listing</li>
+                        <li><strong>Set Response Commitments:</strong> Promise specific timeframes for candidate communication</li>
+                        <li><strong>Track Your Progress:</strong> Monitor your ghost rate and response times in real-time</li>
+                        <li><strong>Earn Your Badge:</strong> Display your commitment to respectful hiring on your careers page</li>
+                        <li><strong>Attract Better Talent:</strong> Watch quality applications increase as your reputation improves</li>
+                    </ol>
+                    
+                    <div style="background: #fff5f5; border-left: 4px solid #fc8181; padding: 20px; border-radius: 10px; margin: 30px 0;">
+                        <h4 style="color: #c53030; margin-bottom: 10px;">🔥 Limited Time Offer</h4>
+                        <p style="color: #4a5568;">First 100 companies get 50% off Professional plan for 6 months. Transform your hiring reputation before your competitors do.</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px;">
+                        <button class="btn btn-primary" style="font-size: 18px; padding: 16px 40px;" onclick="alert('Employer signup coming soon! Email us at employers@ghostscore.com')">Claim Your Company Profile</button>
+                        <p style="margin-top: 15px; color: #718096;">Questions? Email <a href="mailto:employers@ghostscore.com" style="color: #667eea;">employers@ghostscore.com</a></p>
                     </div>
                 </div>
             </div>
@@ -971,38 +1050,79 @@
             {name: "Disney", score: "F", ghostRate: 76, avgDays: 38, reports: 345, details: "Recruiter no-shows twice"}
         ];
         
-        // Simple tab switching
-        function showTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
+        // Tab switching - mimicking original working version
+        function switchTab(event, tabName) {
+            document.querySelectorAll('.tab-button').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
-            // Show selected tab
-            const selectedTab = document.getElementById(tabName);
-            if (selectedTab) {
-                selectedTab.classList.add('active');
-            }
-            
-            // Update button states
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.classList.remove('active');
-                if (button.textContent.toLowerCase().includes(tabName) ||
-                    (tabName === 'report' && button.textContent.includes('Report')) ||
-                    (tabName === 'companies' && button.textContent.includes('Company')) ||
-                    (tabName === 'track' && button.textContent.includes('Track')) ||
-                    (tabName === 'about' && button.textContent.includes('How'))) {
-                    button.classList.add('active');
-                }
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
             });
             
-            // Load companies if needed
-            if (tabName === 'companies') {
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            if (tabName === 'companies' && document.getElementById('companyGrid').innerHTML === '') {
+                populateCompanies();
+            }
+        }
+        
+        // Scroll functions that work like the original
+        function scrollToReport() {
+            document.querySelectorAll('.tab-button').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelector('.tab-button').classList.add('active'); // First tab button
+            document.getElementById('report').classList.add('active');
+            document.getElementById('report').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function scrollToCompanies() {
+            document.querySelectorAll('.tab-button').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-button')[1].classList.add('active'); // Second tab button
+            document.getElementById('companies').classList.add('active');
+            
+            if (document.getElementById('companyGrid').innerHTML === '') {
                 populateCompanies();
             }
             
-            // Scroll to top
-            window.scrollTo(0, 0);
+            document.getElementById('companies').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function scrollToAbout() {
+            document.querySelectorAll('.tab-button').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-button')[3].classList.add('active'); // Fourth tab button (About/How It Works)
+            document.getElementById('about').classList.add('active');
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function scrollToEmployers() {
+            document.querySelectorAll('.tab-button').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-button')[4].classList.add('active'); // Fifth tab button (For Employers)
+            document.getElementById('employers').classList.add('active');
+            document.getElementById('employers').scrollIntoView({ behavior: 'smooth' });
         }
         
         // Populate companies
@@ -1101,6 +1221,13 @@
                 successMsg.classList.remove('show');
             }, 5000);
         }
+        
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure report tab is active on load
+            document.getElementById('report').classList.add('active');
+            document.querySelector('.tab-button').classList.add('active');
+        });
     </script>
     
     <!-- Supabase Integration -->
