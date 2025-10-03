@@ -48,8 +48,8 @@
                         <div class="text-gray-700 font-medium">days average wait before ghosting</div>
                     </div>
                     <div class="text-center p-6 bg-purple-50 rounded-xl">
-                        <div class="text-5xl font-bold text-purple-600 mb-2">89%</div>
-                        <div class="text-gray-700 font-medium">never hear back after final interviews</div>
+                        <div class="text-5xl font-bold text-purple-600 mb-2">80%</div>
+                        <div class="text-gray-700 font-medium">of recruiters admit to ghosting candidates</div>
                     </div>
                 </div>
 
@@ -711,38 +711,81 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script>
+        console.log('Script loaded');
+        
         // Initialize Supabase (REPLACE WITH YOUR ACTUAL CREDENTIALS)
         const SUPABASE_URL = 'YOUR_SUPABASE_URL';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-        const { createClient } = supabase;
-        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        let supabaseClient;
+        if (typeof supabase !== 'undefined') {
+            const { createClient } = supabase;
+            supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('Supabase initialized');
+        } else {
+            console.warn('Supabase not loaded');
+        }
 
-        // Research Modal Controls
-        const openResearchBtn = document.getElementById('openResearchBtn');
-        const closeResearchBtn = document.getElementById('closeResearchBtn');
-        const closeResearchBtn2 = document.getElementById('closeResearchBtn2');
-        const researchModal = document.getElementById('researchModal');
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            
+            // Research Modal Controls
+            const openResearchBtn = document.getElementById('openResearchBtn');
+            const closeResearchBtn = document.getElementById('closeResearchBtn');
+            const closeResearchBtn2 = document.getElementById('closeResearchBtn2');
+            const researchModal = document.getElementById('researchModal');
 
-        openResearchBtn.addEventListener('click', function() {
-            researchModal.classList.remove('hidden');
-            document.body.classList.add('modal-open');
-        });
+            console.log('Modal elements:', {
+                openBtn: openResearchBtn,
+                closeBtn: closeResearchBtn,
+                closeBtn2: closeResearchBtn2,
+                modal: researchModal
+            });
 
-        closeResearchBtn.addEventListener('click', function() {
-            researchModal.classList.add('hidden');
-            document.body.classList.remove('modal-open');
-        });
+            if (openResearchBtn) {
+                openResearchBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Open button clicked');
+                    if (researchModal) {
+                        researchModal.classList.remove('hidden');
+                        document.body.classList.add('modal-open');
+                        console.log('Modal should be visible now');
+                    } else {
+                        console.error('Modal element not found');
+                    }
+                });
+            } else {
+                console.error('Open button not found');
+            }
 
-        closeResearchBtn2.addEventListener('click', function() {
-            researchModal.classList.add('hidden');
-            document.body.classList.remove('modal-open');
-        });
+            if (closeResearchBtn) {
+                closeResearchBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Close button 1 clicked');
+                    researchModal.classList.add('hidden');
+                    document.body.classList.remove('modal-open');
+                });
+            }
 
-        // Close modal when clicking outside
-        researchModal.addEventListener('click', function(e) {
-            if (e.target === researchModal) {
-                researchModal.classList.add('hidden');
-                document.body.classList.remove('modal-open');
+            if (closeResearchBtn2) {
+                closeResearchBtn2.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Close button 2 clicked');
+                    researchModal.classList.add('hidden');
+                    document.body.classList.remove('modal-open');
+                });
+            }
+
+            // Close modal when clicking outside
+            if (researchModal) {
+                researchModal.addEventListener('click', function(e) {
+                    if (e.target === researchModal) {
+                        console.log('Clicked outside modal');
+                        researchModal.classList.add('hidden');
+                        document.body.classList.remove('modal-open');
+                    }
+                });
             }
         });
 
