@@ -334,7 +334,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-purple-50 p-6 rounded-lg">
+                    <div class="bg-purple-50 p-6 rounded-lg space-y-4">
                         <label class="flex items-start cursor-pointer">
                             <input
                                 type="checkbox"
@@ -345,7 +345,22 @@
                             <span class="text-gray-700">
                                 <strong>I consent</strong> to GhostScore using my anonymized experience in our database 
                                 and aggregated statistics. I understand my personal information will be kept private and 
-                                my name will only be used if I explicitly provide additional permission. <span class="text-red-500">*</span>
+                                my name will only be used if I explicitly provide additional permission. I have read and agree to the 
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('tosModal').classList.remove('hidden'); document.body.classList.add('modal-open');" class="text-purple-600 underline hover:text-purple-800">Terms of Service</a>. 
+                                <span class="text-red-500">*</span>
+                            </span>
+                        </label>
+
+                        <label class="flex items-start cursor-pointer">
+                            <input
+                                type="checkbox"
+                                id="newsletter"
+                                class="mt-1 mr-3 w-5 h-5 text-purple-600"
+                            />
+                            <span class="text-gray-700">
+                                <strong>I would like to subscribe to GhostScore's newsletter.</strong> We will never spam you or sell your email. 
+                                You'll receive updates when our platform launches, new company data is available, and important hiring transparency news. 
+                                You can unsubscribe anytime.
                             </span>
                         </label>
                     </div>
@@ -370,12 +385,185 @@
                     Every story you share helps us hold companies accountable and protect future job seekers. 
                     Join the movement for hiring transparency.
                 </p>
-                <a 
-                    href="/"
-                    class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-lg text-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg"
-                >
-                    Visit GhostScore.app →
-                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div id="tosModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 overflow-y-auto">
+        <div class="min-h-screen px-4 py-8">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl relative">
+                <!-- Close button -->
+                <button onclick="document.getElementById('tosModal').classList.add('hidden'); document.body.classList.remove('modal-open');" class="sticky top-4 right-4 float-right bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors z-10">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <!-- ToS Content -->
+                <div class="p-8 md:p-12">
+                    <div class="text-center mb-8 pb-6 border-b-2 border-gray-200">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-2">Terms of Service</h1>
+                        <p class="text-gray-600">Last Updated: October 2025</p>
+                    </div>
+
+                    <div class="space-y-6 text-gray-700">
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">1. Acceptance of Terms</h2>
+                            <p class="leading-relaxed">
+                                By submitting information to GhostScore, you agree to these Terms of Service. If you do not agree to these terms, 
+                                please do not submit your information. We reserve the right to modify these terms at any time, and continued use 
+                                of our service after changes constitutes acceptance of the modified terms.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">2. Information You Provide</h2>
+                            <p class="leading-relaxed mb-3">
+                                When you submit a report to GhostScore, you provide:
+                            </p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>Personal information (name, email address)</li>
+                                <li>Employment-related information (company name, position, hiring timeline)</li>
+                                <li>Your narrative experience with the hiring process</li>
+                                <li>Optional documentation or proof of your experience</li>
+                            </ul>
+                            <p class="leading-relaxed mt-3">
+                                You warrant that all information provided is truthful and accurate to the best of your knowledge.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">3. How We Use Your Information</h2>
+                            <p class="leading-relaxed mb-3">
+                                GhostScore uses your information for the following purposes:
+                            </p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li><strong>Aggregated Statistics:</strong> We compile data to create company-level statistics and industry trends</li>
+                                <li><strong>Public Database:</strong> Your anonymized experience may be displayed on our platform</li>
+                                <li><strong>Research & Analysis:</strong> We analyze hiring practices to identify patterns and create transparency</li>
+                                <li><strong>Platform Updates:</strong> We may contact you via email about platform launches, new features, or significant findings</li>
+                                <li><strong>Verification:</strong> We may contact you to verify details or request additional information</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">4. Privacy & Anonymization</h2>
+                            <p class="leading-relaxed mb-3">
+                                <strong>Your privacy is paramount:</strong>
+                            </p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>Your personal information (name, email) will <strong>never</strong> be displayed publicly without explicit permission</li>
+                                <li>Published reports will use anonymized identifiers (e.g., "Job Seeker #1234")</li>
+                                <li>We aggregate data by company to show trends, not individual stories with identifying details</li>
+                                <li>Any uploaded proof/documentation is stored securely and only accessible to GhostScore staff</li>
+                                <li>We will never sell, rent, or trade your personal information to third parties</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">5. Data Retention</h2>
+                            <p class="leading-relaxed">
+                                We retain your information indefinitely to maintain historical accuracy of our database. However, you may request 
+                                deletion of your personal information at any time by emailing us. Note that deletion may affect the completeness 
+                                of aggregated statistics but will not remove historical trends already published.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">6. Your Representations</h2>
+                            <p class="leading-relaxed mb-3">
+                                By submitting information, you represent and warrant that:
+                            </p>
+                            <ul class="list-disc pl-6 space-y-2">
+                                <li>You have personally experienced the hiring process you describe</li>
+                                <li>Your account is truthful and based on your actual experience</li>
+                                <li>You are not submitting false, defamatory, or malicious information</li>
+                                <li>Any documentation you provide is authentic and legally obtained</li>
+                                <li>You are at least 18 years of age</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">7. Limitation of Liability</h2>
+                            <p class="leading-relaxed">
+                                GhostScore is provided "as is" without warranties of any kind. We make no guarantees about the accuracy, 
+                                completeness, or reliability of information on our platform. We are not liable for any damages arising from 
+                                your use of our service, including but not limited to: employment decisions made based on our data, interactions 
+                                with companies listed on our platform, or any consequences of submitting information to GhostScore.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">8. Intellectual Property</h2>
+                            <p class="leading-relaxed">
+                                By submitting content to GhostScore, you grant us a perpetual, worldwide, royalty-free license to use, reproduce, 
+                                modify, and display your content in anonymized form for the purposes of operating our platform and creating 
+                                transparency in hiring practices. You retain ownership of your original content.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">9. Dispute Resolution</h2>
+                            <p class="leading-relaxed">
+                                If you believe information about a company is inaccurate or violates these terms, please contact us. We will 
+                                investigate all reports and take appropriate action, which may include removing or modifying content. Companies 
+                                may dispute information by providing counter-evidence.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">10. Newsletter & Communications</h2>
+                            <p class="leading-relaxed">
+                                If you opt-in to our newsletter, you consent to receive periodic emails about:
+                            </p>
+                            <ul class="list-disc pl-6 space-y-2 mt-2 mb-3">
+                                <li>Platform launches and major updates</li>
+                                <li>New company data and transparency insights</li>
+                                <li>Hiring industry news and trends</li>
+                            </ul>
+                            <p class="leading-relaxed">
+                                We will <strong>never</strong> spam you, sell your email, or send advertising from third parties. 
+                                You may unsubscribe at any time using the link in any email.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">11. Contact Information</h2>
+                            <p class="leading-relaxed">
+                                For questions about these Terms of Service, data deletion requests, or disputes, please contact us at:<br>
+                                <strong>Email:</strong> support@ghostscore.app<br>
+                                <strong>Platform:</strong> ghostscore.app
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">12. Changes to Terms</h2>
+                            <p class="leading-relaxed">
+                                We may update these Terms of Service from time to time. Continued use of GhostScore after changes are posted 
+                                constitutes acceptance of the modified terms. Significant changes will be communicated via email to newsletter 
+                                subscribers.
+                            </p>
+                        </section>
+
+                        <div class="bg-purple-50 border-l-4 border-purple-600 p-6 rounded-lg mt-8">
+                            <p class="text-gray-800 font-semibold mb-2">Our Commitment to You</p>
+                            <p class="text-gray-700 leading-relaxed">
+                                GhostScore exists to create transparency and accountability in hiring. We are committed to protecting your 
+                                privacy while empowering job seekers with the information they deserve. Your trust is our top priority.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="text-center pt-8 border-t-2 border-gray-200 mt-8">
+                        <button
+                            onclick="document.getElementById('tosModal').classList.add('hidden'); document.body.classList.remove('modal-open');"
+                            class="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-purple-700 transition-colors"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
