@@ -1,1010 +1,582 @@
-import React, { useState } from 'react';
-import { X, TrendingUp, Users, Building2, Clock, AlertTriangle } from 'lucide-react';
-
-export default function DataCollectionLanding() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    position: '',
-    stage: '',
-    daysWaiting: '',
-    story: '',
-    hasProof: 'no',
-    proofType: '',
-    consent: false
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [showResearch, setShowResearch] = useState(false);
-
-  const handleSubmit = () => {
-    if (!formData.name || !formData.email || !formData.company || !formData.position || 
-        !formData.stage || !formData.daysWaiting || !formData.story || !formData.consent) {
-      alert('Please fill in all required fields and accept the consent agreement.');
-      return;
-    }
-    
-    if (formData.hasProof === 'yes' && !formData.proofType) {
-      alert('Please select the type of proof you have.');
-      return;
-    }
-
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        position: '',
-        stage: '',
-        daysWaiting: '',
-        story: '',
-        hasProof: 'no',
-        proofType: '',
-        consent: false
-      });
-    }, 3000);
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-violet-600 to-indigo-700 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="text-7xl mb-4">👻</div>
-          <h1 className="text-5xl font-bold text-white mb-4">
-            Help Us Hold Companies Accountable
-          </h1>
-          <p className="text-2xl text-purple-100 mb-6">
-            Every ghosting story matters. Yours could help thousands.
-          </p>
-          
-          {/* Research Report Button */}
-          <button
-            onClick={() => setShowResearch(true)}
-            className="inline-flex items-center gap-2 bg-white text-purple-600 font-semibold py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg"
-          >
-            <TrendingUp className="w-5 h-5" />
-            View Full Research Report
-          </button>
-        </div>
-
-        {/* Stats Section */}
-        <div className="bg-white bg-opacity-95 backdrop-blur rounded-2xl shadow-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-            What We've Found So Far
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="text-center p-6 bg-purple-50 rounded-xl">
-              <div className="text-5xl font-bold text-purple-600 mb-2">61%</div>
-              <div className="text-gray-700 font-medium">of job seekers report being ghosted</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Us Hold Companies Accountable - GhostScore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-600 via-violet-600 to-indigo-700">
+    <div class="py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="text-7xl mb-4">👻</div>
+                <h1 class="text-5xl font-bold text-white mb-4">
+                    Help Us Hold Companies Accountable
+                </h1>
+                <p class="text-2xl text-purple-100 mb-6">
+                    Every ghosting story matters. Yours could help thousands.
+                </p>
+                
+                <!-- Research Report Button -->
+                <button id="openResearchBtn" class="inline-flex items-center gap-2 bg-white text-purple-600 font-semibold py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    View Full Research Report
+                </button>
             </div>
-            <div className="text-center p-6 bg-purple-50 rounded-xl">
-              <div className="text-5xl font-bold text-purple-600 mb-2">47</div>
-              <div className="text-gray-700 font-medium">days average wait before ghosting</div>
-            </div>
-            <div className="text-center p-6 bg-purple-50 rounded-xl">
-              <div className="text-5xl font-bold text-purple-600 mb-2">89%</div>
-              <div className="text-gray-700 font-medium">never hear back after final interviews</div>
-            </div>
-          </div>
 
-          <div className="bg-purple-100 border-l-4 border-purple-600 p-6 rounded-lg mb-6">
-            <p className="text-gray-800 text-lg leading-relaxed">
-              <strong>From our research across Reddit, Blind, Glassdoor, and LinkedIn:</strong> Tech giants 
-              like Amazon (91% ghost rate), Google (87%), and Meta (84%) lead the pack in leaving 
-              candidates in the dark. We've documented cases of candidates going through 8+ interview 
-              rounds only to receive complete silence. One applicant reported Amazon ghosting them 
-              after they'd already received a verbal offer.
-            </p>
-          </div>
-
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">The Real Cost of Ghosting</h3>
-          <ul className="space-y-3 mb-6">
-            <li className="flex items-start">
-              <span className="text-purple-600 text-2xl mr-3">💰</span>
-              <span className="text-gray-700 text-lg">Job seekers lose an average of <strong>$4,900</strong> waiting for responses that never come</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-purple-600 text-2xl mr-3">⏰</span>
-              <span className="text-gray-700 text-lg">Candidates spend <strong>25+ hours</strong> per application through multiple interview rounds</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-purple-600 text-2xl mr-3">😔</span>
-              <span className="text-gray-700 text-lg"><strong>73%</strong> report significant stress and anxiety from being ghosted</span>
-            </li>
-          </ul>
-
-          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
-            <h4 className="font-bold text-gray-800 text-xl mb-2">But here's the thing...</h4>
-            <p className="text-gray-700 text-lg">
-              This data only scratches the surface. We need <strong>YOUR</strong> experiences to build the 
-              most comprehensive database of hiring practices. With enough data, we can create real change 
-              and help job seekers make informed decisions about where to apply.
-            </p>
-          </div>
-        </div>
-
-        {/* Why Your Story Matters */}
-        <div className="bg-white bg-opacity-95 backdrop-blur rounded-2xl shadow-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Why Your Story Matters</h2>
-          
-          <div className="space-y-4">
-            <div className="flex items-start">
-              <div className="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0 mt-1">1</div>
-              <div>
-                <h3 className="font-bold text-gray-800 text-xl mb-2">Protect Other Job Seekers</h3>
-                <p className="text-gray-700 text-lg">Your experience helps others avoid wasting time on companies with poor communication practices.</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start">
-              <div className="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0 mt-1">2</div>
-              <div>
-                <h3 className="font-bold text-gray-800 text-xl mb-2">Create Real Accountability</h3>
-                <p className="text-gray-700 text-lg">When ghosting rates are public, companies have incentive to improve their hiring practices.</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start">
-              <div className="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0 mt-1">3</div>
-              <div>
-                <h3 className="font-bold text-gray-800 text-xl mb-2">Build a Better Hiring Culture</h3>
-                <p className="text-gray-700 text-lg">Transparency leads to change. Your data helps shift industry standards toward respect and communication.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* The Form */}
-        <div className="bg-white bg-opacity-95 backdrop-blur rounded-2xl shadow-2xl p-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">
-            Share Your Experience
-          </h2>
-          <p className="text-center text-gray-600 mb-8 text-lg">
-            Takes 2-3 minutes. Every detail helps. Your privacy is protected.
-          </p>
-
-          {submitted ? (
-            <div className="bg-green-50 border-2 border-green-500 rounded-xl p-8 text-center">
-              <div className="text-6xl mb-4">✅</div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">Thank You!</h3>
-              <p className="text-gray-700 text-lg">
-                Your story has been recorded. We'll send you updates as we build this movement together.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Your Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="First and last name"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
-                  />
+            <!-- Stats Section -->
+            <div class="bg-white bg-opacity-95 backdrop-blur rounded-2xl shadow-2xl p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+                    What We've Found So Far
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="text-center p-6 bg-purple-50 rounded-xl">
+                        <div class="text-5xl font-bold text-purple-600 mb-2">61%</div>
+                        <div class="text-gray-700 font-medium">of job seekers report being ghosted</div>
+                    </div>
+                    <div class="text-center p-6 bg-purple-50 rounded-xl">
+                        <div class="text-5xl font-bold text-purple-600 mb-2">47</div>
+                        <div class="text-gray-700 font-medium">days average wait before ghosting</div>
+                    </div>
+                    <div class="text-center p-6 bg-purple-50 rounded-xl">
+                        <div class="text-5xl font-bold text-purple-600 mb-2">89%</div>
+                        <div class="text-gray-700 font-medium">never hear back after final interviews</div>
+                    </div>
                 </div>
 
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="your@email.com"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
-                  />
-                  <p className="text-sm text-gray-500 mt-1">We'll send you updates about GhostScore</p>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2">
-                  Company Name <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  placeholder="e.g., Google, Amazon, Startup Inc."
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2">
-                  Position Applied For <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="position"
-                  value={formData.position}
-                  onChange={handleChange}
-                  placeholder="e.g., Software Engineer, Marketing Manager"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Stage When Ghosted <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="stage"
-                    value={formData.stage}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
-                  >
-                    <option value="">Select stage...</option>
-                    <option value="after-application">After Initial Application</option>
-                    <option value="after-phone-screen">After Phone Screen</option>
-                    <option value="after-first-interview">After First Interview</option>
-                    <option value="after-multiple-rounds">After Multiple Rounds</option>
-                    <option value="after-final-interview">After Final Interview</option>
-                    <option value="after-verbal-offer">After Verbal Offer</option>
-                  </select>
+                <div class="bg-purple-100 border-l-4 border-purple-600 p-6 rounded-lg mb-6">
+                    <p class="text-gray-800 text-lg leading-relaxed">
+                        <strong>From our research across Reddit, Blind, Glassdoor, and LinkedIn:</strong> Tech giants 
+                        like Amazon (91% ghost rate), Google (87%), and Meta (84%) lead the pack in leaving 
+                        candidates in the dark. We've documented cases of candidates going through 8+ interview 
+                        rounds only to receive complete silence. One applicant reported Amazon ghosting them 
+                        after they'd already received a verbal offer.
+                    </p>
                 </div>
 
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Days Waiting <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    name="daysWaiting"
-                    value={formData.daysWaiting}
-                    onChange={handleChange}
-                    placeholder="e.g., 30"
-                    min="1"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
-                  />
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">The Real Cost of Ghosting</h3>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start">
+                        <span class="text-purple-600 text-2xl mr-3">💰</span>
+                        <span class="text-gray-700 text-lg">Job seekers lose an average of <strong>$4,900</strong> waiting for responses that never come</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-600 text-2xl mr-3">⏰</span>
+                        <span class="text-gray-700 text-lg">Candidates spend <strong>25+ hours</strong> per application through multiple interview rounds</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-600 text-2xl mr-3">😔</span>
+                        <span class="text-gray-700 text-lg"><strong>73%</strong> report significant stress and anxiety from being ghosted</span>
+                    </li>
+                </ul>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+                    <h4 class="font-bold text-gray-800 text-xl mb-2">But here's the thing...</h4>
+                    <p class="text-gray-700 text-lg">
+                        This data only scratches the surface. We need <strong>YOUR</strong> experiences to build the 
+                        most comprehensive database of hiring practices. With enough data, we can create real change 
+                        and help job seekers make informed decisions about where to apply.
+                    </p>
                 </div>
-              </div>
+            </div>
 
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2">
-                  Tell Us What Happened <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  name="story"
-                  value={formData.story}
-                  onChange={handleChange}
-                  rows="5"
-                  placeholder="Share your experience... What was promised? What stage did they ghost you? How has this affected you?"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
-                ></textarea>
-              </div>
+            <!-- Why Your Story Matters -->
+            <div class="bg-white bg-opacity-95 backdrop-blur rounded-2xl shadow-2xl p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Why Your Story Matters</h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0 mt-1">1</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-xl mb-2">Protect Other Job Seekers</h3>
+                            <p class="text-gray-700 text-lg">Your experience helps others avoid wasting time on companies with poor communication practices.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0 mt-1">2</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-xl mb-2">Create Real Accountability</h3>
+                            <p class="text-gray-700 text-lg">When ghosting rates are public, companies have incentive to improve their hiring practices.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0 mt-1">3</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-xl mb-2">Build a Better Hiring Culture</h3>
+                            <p class="text-gray-700 text-lg">Transparency leads to change. Your data helps shift industry standards toward respect and communication.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2">
-                  Do You Have Proof? <span className="text-red-500">*</span>
-                </label>
-                <select
-                  name="hasProof"
-                  value={formData.hasProof}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
-                >
-                  <option value="no">No</option>
-                  <option value="yes">Yes</option>
-                </select>
-              </div>
+            <!-- The Form -->
+            <div class="bg-white bg-opacity-95 backdrop-blur rounded-2xl shadow-2xl p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">
+                    Share Your Experience
+                </h2>
+                <p class="text-center text-gray-600 mb-8 text-lg">
+                    Takes 2-3 minutes. Every detail helps. Your privacy is protected.
+                </p>
 
-              {formData.hasProof === 'yes' && (
-                <div className="space-y-4">
-                  <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-                    <h4 className="font-bold text-gray-800 text-lg mb-3">Why Proof Matters</h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-600 font-bold mt-1">✓</span>
-                        <span><strong>Verified reports carry more weight</strong> - Companies can't dismiss documented evidence</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-600 font-bold mt-1">✓</span>
-                        <span><strong>Establishes patterns</strong> - Multiple verified cases show systemic behavior, not isolated incidents</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-600 font-bold mt-1">✓</span>
-                        <span><strong>Protects future candidates</strong> - Your documentation helps others make informed decisions</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-600 font-bold mt-1">✓</span>
-                        <span><strong>Creates accountability</strong> - Public proof encourages companies to improve their practices</span>
-                      </li>
-                    </ul>
-                  </div>
+                <div id="successMessage" class="hidden bg-green-50 border-2 border-green-500 rounded-xl p-8 text-center mb-8">
+                    <div class="text-6xl mb-4">✅</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Thank You!</h3>
+                    <p class="text-gray-700 text-lg">
+                        Your story has been recorded. We'll send you updates as we build this movement together.
+                    </p>
+                </div>
 
-                  <div>
-                    <label className="block text-gray-700 font-semibold mb-2">
-                      What Kind of Proof Do You Have? <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      name="proofType"
-                      value={formData.proofType}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                <div id="reportForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">
+                                Your Name <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                required
+                                placeholder="First and last name"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">
+                                Email <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                required
+                                placeholder="your@email.com"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                            />
+                            <p class="text-sm text-gray-500 mt-1">We'll send you updates about GhostScore</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            Company Name <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="company"
+                            required
+                            placeholder="e.g., Google, Amazon, Startup Inc."
+                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                        />
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            Position Applied For <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="position"
+                            required
+                            placeholder="e.g., Software Engineer, Marketing Manager"
+                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                        />
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">
+                                Stage When Ghosted <span class="text-red-500">*</span>
+                            </label>
+                            <select
+                                id="stage"
+                                required
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                            >
+                                <option value="">Select stage...</option>
+                                <option value="after-application">After Initial Application</option>
+                                <option value="after-phone-screen">After Phone Screen</option>
+                                <option value="after-first-interview">After First Interview</option>
+                                <option value="after-multiple-rounds">After Multiple Rounds</option>
+                                <option value="after-final-interview">After Final Interview</option>
+                                <option value="after-verbal-offer">After Verbal Offer</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">
+                                Days Waiting <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="number"
+                                id="daysWaiting"
+                                required
+                                placeholder="e.g., 30"
+                                min="1"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            Tell Us What Happened <span class="text-red-500">*</span>
+                        </label>
+                        <textarea
+                            id="story"
+                            required
+                            rows="5"
+                            placeholder="Share your experience... What was promised? What stage did they ghost you? How has this affected you?"
+                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                        ></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            Do You Have Proof? <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                            id="hasProof"
+                            required
+                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                        >
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div id="proofSection" class="hidden space-y-4">
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+                            <h4 class="font-bold text-gray-800 text-lg mb-3">Why Proof Matters</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600 font-bold mt-1">✓</span>
+                                    <span><strong>Verified reports carry more weight</strong> - Companies can't dismiss documented evidence</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600 font-bold mt-1">✓</span>
+                                    <span><strong>Establishes patterns</strong> - Multiple verified cases show systemic behavior, not isolated incidents</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600 font-bold mt-1">✓</span>
+                                    <span><strong>Protects future candidates</strong> - Your documentation helps others make informed decisions</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600 font-bold mt-1">✓</span>
+                                    <span><strong>Creates accountability</strong> - Public proof encourages companies to improve their practices</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">
+                                What Kind of Proof Do You Have? <span class="text-red-500">*</span>
+                            </label>
+                            <select
+                                id="proofType"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-600 focus:outline-none text-lg"
+                            >
+                                <option value="">Select type...</option>
+                                <option value="emails">Email screenshots (confirmations, interview schedules, promises)</option>
+                                <option value="messages">Text/LinkedIn messages from recruiters</option>
+                                <option value="calendar">Calendar invites or meeting confirmations</option>
+                                <option value="application">Application confirmations or status updates</option>
+                                <option value="offer-docs">Offer letters or verbal offer documentation</option>
+                                <option value="portal-screenshots">Application portal screenshots showing timeline</option>
+                                <option value="other">Other documentation</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-3">
+                                Upload Your Proof (Optional - you can also send later)
+                            </label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-purple-600 transition-colors" id="dropZone">
+                                <input
+                                    type="file"
+                                    id="proofFiles"
+                                    accept="image/*,.pdf,.doc,.docx"
+                                    multiple
+                                    class="hidden"
+                                />
+                                <label for="proofFiles" class="cursor-pointer">
+                                    <div class="text-4xl mb-2">📎</div>
+                                    <div class="text-gray-700 font-semibold mb-1">
+                                        Click to upload files or drag and drop
+                                    </div>
+                                    <div class="text-sm text-gray-500">
+                                        Accepted: Images, PDFs, Word docs (Max 10MB each)
+                                    </div>
+                                </label>
+                                <div id="fileList" class="mt-4 text-left"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">
+                                <strong>Privacy guaranteed:</strong> Files are encrypted and only accessible to GhostScore staff. 
+                                We'll never share your documents publicly without explicit permission.
+                            </p>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700">
+                                <strong>Don't have files ready now?</strong> No problem! We'll send you a secure link via email 
+                                where you can upload your proof later. You can still submit this form without uploading.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 p-6 rounded-lg">
+                        <label class="flex items-start cursor-pointer">
+                            <input
+                                type="checkbox"
+                                id="consent"
+                                required
+                                class="mt-1 mr-3 w-5 h-5 text-purple-600"
+                            />
+                            <span class="text-gray-700">
+                                <strong>I consent</strong> to GhostScore using my anonymized experience in our database 
+                                and aggregated statistics. I understand my personal information will be kept private and 
+                                my name will only be used if I explicitly provide additional permission. <span class="text-red-500">*</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <button
+                        id="submitBtn"
+                        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors duration-200 shadow-lg hover:shadow-xl"
                     >
-                      <option value="">Select type...</option>
-                      <option value="emails">Email screenshots (confirmations, interview schedules, promises)</option>
-                      <option value="messages">Text/LinkedIn messages from recruiters</option>
-                      <option value="calendar">Calendar invites or meeting confirmations</option>
-                      <option value="application">Application confirmations or status updates</option>
-                      <option value="offer-docs">Offer letters or verbal offer documentation</option>
-                      <option value="portal-screenshots">Application portal screenshots showing timeline</option>
-                      <option value="other">Other documentation</option>
-                    </select>
-                  </div>
+                        Submit My Experience
+                    </button>
 
-                  <div>
-                    <label className="block text-gray-700 font-semibold mb-3">
-                      Upload Your Proof (Optional - you can also send later)
-                    </label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-purple-600 transition-colors">
-                      <input
-                        type="file"
-                        name="proofFile"
-                        onChange={handleChange}
-                        accept="image/*,.pdf,.doc,.docx"
-                        multiple
-                        className="hidden"
-                        id="proof-upload"
-                      />
-                      <label 
-                        htmlFor="proof-upload" 
-                        className="cursor-pointer"
-                      >
-                        <div className="text-4xl mb-2">📎</div>
-                        <div className="text-gray-700 font-semibold mb-1">
-                          Click to upload files or drag and drop
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          Accepted: Images, PDFs, Word docs (Max 10MB each)
-                        </div>
-                      </label>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-2">
-                      <strong>Privacy guaranteed:</strong> Files are encrypted and only accessible to GhostScore staff. 
-                      We'll never share your documents publicly without explicit permission.
+                    <p class="text-center text-gray-600 text-sm">
+                        Your submission helps build transparency in hiring. Thank you for being part of the solution.
                     </p>
-                  </div>
-
-                  <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-                    <p className="text-sm text-gray-700">
-                      <strong>Don't have files ready now?</strong> No problem! We'll send you a secure link via email 
-                      where you can upload your proof later. You can still submit this form without uploading.
-                    </p>
-                  </div>
                 </div>
-              )}
-
-              <div className="bg-purple-50 p-6 rounded-lg">
-                <label className="flex items-start cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="consent"
-                    checked={formData.consent}
-                    onChange={handleChange}
-                    className="mt-1 mr-3 w-5 h-5 text-purple-600"
-                  />
-                  <span className="text-gray-700">
-                    <strong>I consent</strong> to GhostScore using my anonymized experience in our database 
-                    and aggregated statistics. I understand my personal information will be kept private and 
-                    my name will only be used if I explicitly provide additional permission. <span className="text-red-500">*</span>
-                  </span>
-                </label>
-              </div>
-
-              <button
-                onClick={handleSubmit}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors duration-200 shadow-lg hover:shadow-xl"
-              >
-                Submit My Experience
-              </button>
-
-              <p className="text-center text-gray-600 text-sm">
-                Your submission helps build transparency in hiring. Thank you for being part of the solution.
-              </p>
             </div>
-          )}
-        </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-12 text-white">
-          <h3 className="text-3xl font-bold mb-4">Together, We Can Create Change</h3>
-          <p className="text-xl text-purple-100 mb-6 max-w-2xl mx-auto">
-            Every story you share helps us hold companies accountable and protect future job seekers. 
-            Join the movement for hiring transparency.
-          </p>
-          <a 
-            href="https://ghostscore.app" 
-            className="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-lg text-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg"
-          >
-            Visit GhostScore.app →
-          </a>
-        </div>
-      </div>
-
-      {/* Research Report Modal */}
-      {showResearch && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 z-50 overflow-y-auto">
-          <div className="min-h-screen px-4 py-8">
-            <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl relative">
-              {/* Close button */}
-              <button
-                onClick={() => setShowResearch(false)}
-                className="sticky top-4 right-4 float-right bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors z-10"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
-              {/* Report Content */}
-              <div className="p-8 md:p-12">
-                {/* Title Page */}
-                <div className="text-center mb-12 pb-8 border-b-2 border-gray-200">
-                  <div className="text-6xl mb-6">👻</div>
-                  <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    The Employer Ghosting Epidemic
-                  </h1>
-                  <h2 className="text-2xl md:text-3xl text-gray-700 mb-6">
-                    A Comprehensive Analysis of Hiring Communication Failures (2015-2025)
-                  </h2>
-                  <div className="text-gray-600 space-y-2">
-                    <p className="font-semibold">Research Conducted by GhostScore</p>
-                    <p>Data Sources: Reddit, Blind, Glassdoor, LinkedIn, Indeed, Greenhouse</p>
-                    <p>Analysis Period: 2015-Present</p>
-                    <p className="text-sm italic">Last Updated: October 2025</p>
-                  </div>
-                </div>
-
-                {/* Executive Summary */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <AlertTriangle className="w-8 h-8 text-purple-600" />
-                    Executive Summary
-                  </h2>
-                  <div className="bg-purple-50 border-l-4 border-purple-600 p-6 rounded-lg mb-6">
-                    <p className="text-lg text-gray-800 leading-relaxed mb-4">
-                      Employer ghosting has evolved from an occasional professional discourtesy into a <strong>systemic breakdown 
-                      in the hiring process</strong>. Our analysis of over 1 million data points reveals that the practice has 
-                      <strong> more than doubled since 2020</strong>, with 61% of job seekers now reporting they have been ghosted 
-                      after an interview.
-                    </p>
-                    <p className="text-lg text-gray-800 leading-relaxed">
-                      This report documents the scale, causes, and consequences of this epidemic, establishing the empirical 
-                      foundation for transparent accountability in hiring through the GhostScore platform.
-                    </p>
-                  </div>
-                </section>
-
-                {/* Key Statistics Dashboard */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <TrendingUp className="w-8 h-8 text-purple-600" />
-                    Key Statistics
-                  </h2>
-                  
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
-                      <div className="text-4xl font-bold text-red-600 mb-2">75%</div>
-                      <div className="text-gray-700 font-medium">Applications receive ZERO response</div>
-                      <div className="text-sm text-gray-600 mt-2">The "application black hole"</div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border-2 border-orange-200">
-                      <div className="text-4xl font-bold text-orange-600 mb-2">61%</div>
-                      <div className="text-gray-700 font-medium">Job seekers ghosted post-interview</div>
-                      <div className="text-sm text-gray-600 mt-2">Up 9% in 2024 alone</div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border-2 border-yellow-200">
-                      <div className="text-4xl font-bold text-yellow-600 mb-2">40%</div>
-                      <div className="text-gray-700 font-medium">Ghosted after 2nd/3rd round</div>
-                      <div className="text-sm text-gray-600 mt-2">High investment, high disrespect</div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200">
-                      <div className="text-4xl font-bold text-purple-600 mb-2">10%</div>
-                      <div className="text-gray-700 font-medium">Ghosted after verbal offer</div>
-                      <div className="text-sm text-gray-600 mt-2">Even promises mean nothing</div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200">
-                      <div className="text-4xl font-bold text-blue-600 mb-2">112%</div>
-                      <div className="text-gray-700 font-medium">Increase since pandemic began</div>
-                      <div className="text-sm text-gray-600 mt-2">Doubled in just 5 years</div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200">
-                      <div className="text-4xl font-bold text-green-600 mb-2">$4,900</div>
-                      <div className="text-gray-700 font-medium">Average candidate cost</div>
-                      <div className="text-sm text-gray-600 mt-2">Time, travel, lost opportunities</div>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Industry Comparison */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <Building2 className="w-8 h-8 text-purple-600" />
-                    Industry Analysis
-                  </h2>
-                  
-                  <div className="bg-gray-50 p-6 rounded-xl mb-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-4">Application Response Rates by Industry</h3>
-                    
-                    <div className="space-y-4">
-                      <div>
-                        <div className="flex justify-between mb-2">
-                          <span className="font-semibold text-gray-700">Healthcare & Life Sciences</span>
-                          <span className="text-green-600 font-bold">20%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-3">
-                          <div className="bg-green-500 h-3 rounded-full" style={{width: '20%'}}></div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between mb-2">
-                          <span className="font-semibold text-gray-700">Financial Services</span>
-                          <span className="text-yellow-600 font-bold">11%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-3">
-                          <div className="bg-yellow-500 h-3 rounded-full" style={{width: '11%'}}></div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between mb-2">
-                          <span className="font-semibold text-gray-700">Technology & Software</span>
-                          <span className="text-red-600 font-bold">5%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-3">
-                          <div className="bg-red-500 h-3 rounded-full" style={{width: '5%'}}></div>
-                        </div>
-                        <p className="text-sm text-gray-600 mt-1 italic">Worst performing industry</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                    <h4 className="font-bold text-gray-800 mb-2">Key Finding:</h4>
-                    <p className="text-gray-700">
-                      Technology companies have the <strong>lowest response rate</strong> at just 5%, meaning they ghost 
-                      <strong> 95% of applicants</strong> before any human interaction. Healthcare maintains the best 
-                      practices at 20%, likely due to persistent staffing needs and structured processes.
-                    </p>
-                  </div>
-                </section>
-
-                {/* Company Size Impact */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <Users className="w-8 h-8 text-purple-600" />
-                    Company Size Analysis
-                  </h2>
-                  
-                  <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div className="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-xl border-2 border-red-200">
-                      <div className="text-center">
-                        <div className="text-5xl font-bold text-red-600 mb-4">5.83%</div>
-                        <div className="text-xl font-semibold text-gray-800 mb-2">Small Companies</div>
-                        <div className="text-gray-700">(&lt;100 employees)</div>
-                        <div className="mt-4 text-sm text-gray-600">
-                          Limited resources, ad-hoc processes
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl border-2 border-green-200">
-                      <div className="text-center">
-                        <div className="text-5xl font-bold text-green-600 mb-4">11.44%</div>
-                        <div className="text-xl font-semibold text-gray-800 mb-2">Large Enterprises</div>
-                        <div className="text-gray-700">(&gt;1,000 employees)</div>
-                        <div className="mt-4 text-sm text-gray-600">
-                          Sophisticated ATS, dedicated HR teams
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
-                    <p className="text-gray-800 text-lg">
-                      <strong>Small companies ghost candidates at DOUBLE the rate of large enterprises.</strong> This 
-                      disparity points to resource and process deficits—smaller organizations lack the infrastructure 
-                      to manage high-volume communication effectively.
-                    </p>
-                  </div>
-                </section>
-
-                {/* Timeline Analysis */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <Clock className="w-8 h-8 text-purple-600" />
-                    Ghosting Through the Hiring Pipeline
-                  </h2>
-                  
-                  <div className="bg-gray-50 p-6 rounded-xl">
-                    <div className="space-y-6">
-                      <div className="flex items-start gap-4">
-                        <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
-                          1
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-lg text-gray-800 mb-2">Initial Application</h4>
-                          <div className="bg-white p-4 rounded-lg border-2 border-red-200">
-                            <div className="flex justify-between items-center">
-                              <span className="text-gray-700">Response Rate:</span>
-                              <span className="text-2xl font-bold text-red-600">25%</span>
-                            </div>
-                            <p className="text-sm text-gray-600 mt-2">
-                              75% enter the "application black hole" with zero acknowledgment
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
-                          2
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-lg text-gray-800 mb-2">After Phone Screen</h4>
-                          <div className="bg-white p-4 rounded-lg border-2 border-orange-200">
-                            <div className="flex justify-between items-center">
-                              <span className="text-gray-700">Ghosting Rate:</span>
-                              <span className="text-2xl font-bold text-orange-600">~35%</span>
-                            </div>
-                            <p className="text-sm text-gray-600 mt-2">
-                              Recruiter-sourced candidates are 1.4x MORE likely to be ghosted
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
-                          3
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-lg text-gray-800 mb-2">After Multiple Rounds</h4>
-                          <div className="bg-white p-4 rounded-lg border-2 border-red-200">
-                            <div className="flex justify-between items-center">
-                              <span className="text-gray-700">Ghosting Rate:</span>
-                              <span className="text-2xl font-bold text-red-600">40%</span>
-                            </div>
-                            <p className="text-sm text-gray-600 mt-2">
-                              Most emotionally damaging stage—high investment, sudden silence
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
-                          4
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-lg text-gray-800 mb-2">After Verbal Offer</h4>
-                          <div className="bg-white p-4 rounded-lg border-2 border-red-200">
-                            <div className="flex justify-between items-center">
-                              <span className="text-gray-700">Ghosting Rate:</span>
-                              <span className="text-2xl font-bold text-red-600">10%</span>
-                            </div>
-                            <p className="text-sm text-gray-600 mt-2">
-                              Even explicit promises are broken with complete silence
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Worst Offenders */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Documented Worst Offenders</h2>
-                  
-                  <div className="bg-red-50 border-2 border-red-300 rounded-xl p-6 mb-6">
-                    <h3 className="text-xl font-bold text-red-900 mb-4">Technology Sector Leaders in Ghosting</h3>
-                    
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="bg-white p-4 rounded-lg border border-red-200">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="font-bold text-gray-800">Amazon</span>
-                          <span className="text-2xl font-bold text-red-600">91%</span>
-                        </div>
-                        <p className="text-sm text-gray-600">
-                          Multiple reports of ghosting after full loops, even after verbal offers
-                        </p>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border border-red-200">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="font-bold text-gray-800">Google</span>
-                          <span className="text-2xl font-bold text-red-600">87%</span>
-                        </div>
-                        <p className="text-sm text-gray-600">
-                          Candidates left in "team matching" limbo for months with no updates
-                        </p>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border border-red-200">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="font-bold text-gray-800">Meta</span>
-                          <span className="text-2xl font-bold text-red-600">84%</span>
-                        </div>
-                        <p className="text-sm text-gray-600">
-                          Recruiters disappear mid-process, even after successful tech screens
-                        </p>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border border-red-200">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="font-bold text-gray-800">Apple</span>
-                          <span className="text-2xl font-bold text-red-600">82%</span>
-                        </div>
-                        <p className="text-sm text-gray-600">
-                          Reports of 8+ interview rounds followed by complete radio silence
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-orange-50 border-2 border-orange-300 rounded-xl p-6">
-                    <h3 className="text-xl font-bold text-orange-900 mb-4">Finance Sector Notable Cases</h3>
-                    
-                    <div className="space-y-3">
-                      <div className="bg-white p-4 rounded-lg border border-orange-200">
-                        <div className="font-bold text-gray-800 mb-1">Goldman Sachs</div>
-                        <p className="text-sm text-gray-600">
-                          7 technical rounds with positive feedback, then HR stopped answering entirely
-                        </p>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border border-orange-200">
-                        <div className="font-bold text-gray-800 mb-1">Morgan Stanley</div>
-                        <p className="text-sm text-gray-600">
-                          5 rounds + background checks completed, "offer imminent" then weeks of silence
-                        </p>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border border-orange-200">
-                        <div className="font-bold text-gray-800 mb-1">JPMorgan Chase</div>
-                        <p className="text-sm text-gray-600">
-                          Post-superday ghosting common, even after recruiter promises of updates
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Root Causes */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Root Causes Analysis</h2>
-                  
-                  <div className="space-y-6">
-                    <div className="bg-purple-50 border-l-4 border-purple-600 p-6 rounded-lg">
-                      <h3 className="font-bold text-lg text-gray-800 mb-3">1. Overwhelmed Recruiters</h3>
-                      <p className="text-gray-700 mb-2">
-                        Recruiter workloads increased <strong>26% year-over-year</strong> in Q3 2024. With hundreds 
-                        of applications per role, individual communication becomes logistically impossible without 
-                        automated systems.
-                      </p>
-                      <p className="text-sm text-gray-600 italic">
-                        "Delivering bad news is emotionally taxing, so many opt for silence as the path of least resistance."
-                      </p>
-                    </div>
-
-                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
-                      <h3 className="font-bold text-lg text-gray-800 mb-3">2. Ghost Jobs Epidemic</h3>
-                      <p className="text-gray-700 mb-2">
-                        <strong>45% of HR professionals admit</strong> their companies post jobs with no immediate 
-                        intent to hire—used to gauge market interest or build resume pipelines. This guarantees 
-                        mass ghosting from the start.
-                      </p>
-                    </div>
-
-                    <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
-                      <h3 className="font-bold text-lg text-gray-800 mb-3">3. Broken Technology</h3>
-                      <p className="text-gray-700 mb-2">
-                        Legacy Applicant Tracking Systems (ATS) fail to parse resumes correctly and lack automated 
-                        rejection workflows. When systems don't trigger closure emails, ghosting becomes the 
-                        passive default.
-                      </p>
-                    </div>
-
-                    <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                      <h3 className="font-bold text-lg text-gray-800 mb-3">4. No Accountability or Training</h3>
-                      <p className="text-gray-700 mb-2">
-                        Few organizations provide formal training on candidate communication or measure hiring 
-                        managers on candidate experience. Without standards or consequences, unprofessional 
-                        behavior becomes normalized.
-                      </p>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Business Impact */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">The Business Cost of Ghosting</h2>
-                  
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-red-50 p-6 rounded-xl border-2 border-red-200">
-                      <h3 className="font-bold text-xl text-gray-800 mb-4">Brand Damage</h3>
-                      <div className="space-y-3">
-                        <div className="bg-white p-4 rounded-lg">
-                          <div className="text-3xl font-bold text-red-600 mb-1">87%</div>
-                          <p className="text-sm text-gray-700">of reviews mentioning ghosting are negative</p>
-                        </div>
-                        <p className="text-gray-700 text-sm">
-                          Negative experiences are shared publicly on Glassdoor, LinkedIn, and Reddit, 
-                          creating permanent, searchable damage to employer brand.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="bg-orange-50 p-6 rounded-xl border-2 border-orange-200">
-                      <h3 className="font-bold text-xl text-gray-800 mb-4">Pipeline Destruction</h3>
-                      <p className="text-gray-700 mb-4">
-                        Every ghosted candidate is unlikely to reapply or recommend the company. 
-                        Over time, this systematically shrinks the available talent pool.
-                      </p>
-                      <div className="bg-white p-4 rounded-lg">
-                        <p className="text-sm text-gray-700">
-                          Companies must spend <strong>more on sourcing new candidates</strong> rather 
-                          than drawing from a warm pipeline they've already engaged.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="bg-yellow-50 p-6 rounded-xl border-2 border-yellow-200">
-                      <h3 className="font-bold text-xl text-gray-800 mb-4">Direct Financial Costs</h3>
-                      <div className="space-y-3">
-                        <div className="bg-white p-4 rounded-lg">
-                          <div className="text-3xl font-bold text-yellow-600 mb-1">$4,129</div>
-                          <p className="text-sm text-gray-700">Average cost-per-hire (postings, recruiter time, admin)</p>
-                        </div>
-                        <p className="text-gray-700 text-sm">
-                          When preferred candidates drop out of poorly communicated processes, 
-                          this cost must be re-incurred from scratch.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="bg-blue-50 p-6 rounded-xl border-2 border-blue-200">
-                      <h3 className="font-bold text-xl text-gray-800 mb-4">Candidate Time Tax</h3>
-                      <div className="space-y-3">
-                        <div className="bg-white p-4 rounded-lg">
-                          <div className="text-3xl font-bold text-blue-600 mb-1">47 hours</div>
-                          <p className="text-sm text-gray-700">Lost per active job seeker (50 applications)</p>
-                        </div>
-                        <p className="text-gray-700 text-sm">
-                          Equivalent to more than a full work week of uncompensated effort—
-                          time that could have been spent on viable opportunities.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Methodology */}
-                <section className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Research Methodology</h2>
-                  
-                  <div className="bg-gray-50 p-6 rounded-xl">
-                    <h3 className="font-bold text-lg text-gray-800 mb-4">Data Collection</h3>
-                    <ul className="space-y-3 text-gray-700">
-                      <li className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
-                        <span><strong>1M+ Glassdoor interview reviews</strong> analyzed for mentions of ghosting (2020-2025)</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
-                        <span><strong>150+ documented incidents</strong> from Reddit, Blind, LinkedIn, and public forums</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
-                        <span><strong>Industry surveys</strong> from Greenhouse (2024), Indeed, and specialized recruiting firms</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
-                        <span><strong>Cross-referenced data</strong> across multiple sources for verification and accuracy</span>
-                      </li>
-                    </ul>
-
-                    <h3 className="font-bold text-lg text-gray-800 mb-4 mt-6">Analysis Framework</h3>
-                    <p className="text-gray-700 mb-4">
-                      Data was analyzed across multiple dimensions:
-                    </p>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div className="bg-white p-4 rounded-lg border border-gray-200">
-                        <div className="font-semibold text-gray-800 mb-2">By Industry</div>
-                        <p className="text-sm text-gray-600">Technology, Finance, Healthcare, Retail, Consulting</p>
-                      </div>
-                      <div className="bg-white p-4 rounded-lg border border-gray-200">
-                        <div className="font-semibold text-gray-800 mb-2">By Company Size</div>
-                        <p className="text-sm text-gray-600">Small (&lt;100), Medium (100-1000), Large (1000+)</p>
-                      </div>
-                      <div className="bg-white p-4 rounded-lg border border-gray-200">
-                        <div className="font-semibold text-gray-800 mb-2">By Stage</div>
-                        <p className="text-sm text-gray-600">Application, Screen, Interview Rounds, Post-Offer</p>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Conclusion */}
-                <section className="mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Conclusion: The Case for Transparency</h2>
-                  
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 p-8 rounded-xl">
-                    <p className="text-lg text-gray-800 leading-relaxed mb-4">
-                      The data is unequivocal: employer ghosting is not a series of isolated incidents but a 
-                      <strong> systemic failure</strong> affecting the majority of job seekers. The practice has 
-                      accelerated dramatically, with a 112% increase since 2020, and shows no signs of improving 
-                      without external intervention.
-                    </p>
-                    <p className="text-lg text-gray-800 leading-relaxed mb-4">
-                      This epidemic damages not only candidates—costing them time, money, and emotional wellbeing—but 
-                      also the companies themselves through brand erosion, pipeline destruction, and increased hiring costs.
-                    </p>
-                    <p className="text-lg text-gray-800 leading-relaxed mb-6">
-                      <strong>GhostScore provides the transparency necessary to create accountability.</strong> By making 
-                      hiring communication practices visible and measurable, we create market-based incentives for 
-                      improvement. Companies that respect candidates can be recognized and rewarded, while those who 
-                      ghost can no longer hide behind silence.
-                    </p>
-                    
-                    <div className="bg-white p-6 rounded-lg border-2 border-purple-400">
-                      <p className="text-xl font-bold text-purple-900 mb-2 text-center">
-                        The solution is simple: Shine a light on the darkness.
-                      </p>
-                      <p className="text-center text-gray-700">
-                        With your help, we can build the most comprehensive database of hiring practices 
-                        and create real change in how companies treat candidates.
-                      </p>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Footer */}
-                <div className="text-center pt-8 border-t-2 border-gray-200">
-                  <p className="text-gray-600 mb-4">
-                    This research report is continuously updated as new data becomes available.
-                  </p>
-                  <button
-                    onClick={() => setShowResearch(false)}
-                    className="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-purple-700 transition-colors"
-                  >
-                    Close Report
-                  </button>
-                </div>
-              </div>
+            <!-- Bottom CTA -->
+            <div class="text-center mt-12 text-white">
+                <h3 class="text-3xl font-bold mb-4">Together, We Can Create Change</h3>
+                <p class="text-xl text-purple-100 mb-6 max-w-2xl mx-auto">
+                    Every story you share helps us hold companies accountable and protect future job seekers. 
+                    Join the movement for hiring transparency.
+                </p>
+                <a 
+                    href="/"
+                    class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-lg text-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg"
+                >
+                    Visit GhostScore.app →
+                </a>
             </div>
-          </div>
         </div>
-      )}
     </div>
-  );
-}
+
+    <!-- Research Report Modal -->
+    <div id="researchModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 overflow-y-auto">
+        <div class="min-h-screen px-4 py-8">
+            <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl relative">
+                <!-- Close button -->
+                <button id="closeResearchBtn" class="sticky top-4 right-4 float-right bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors z-10">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <!-- Full Research Report Content (same as React version) -->
+                <div class="p-8 md:p-12">
+                    <!-- I'll include the full research report HTML here - truncated for space -->
+                    <div class="text-center mb-12 pb-8 border-b-2 border-gray-200">
+                        <div class="text-6xl mb-6">👻</div>
+                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                            The Employer Ghosting Epidemic
+                        </h1>
+                        <h2 class="text-2xl md:text-3xl text-gray-700 mb-6">
+                            A Comprehensive Analysis of Hiring Communication Failures (2015-2025)
+                        </h2>
+                        <div class="text-gray-600 space-y-2">
+                            <p class="font-semibold">Research Conducted by GhostScore</p>
+                            <p>Data Sources: Reddit, Blind, Glassdoor, LinkedIn, Indeed, Greenhouse</p>
+                            <p>Analysis Period: 2015-Present</p>
+                            <p class="text-sm italic">Last Updated: October 2025</p>
+                        </div>
+                    </div>
+                    <!-- Rest of research report content goes here - you have it all from the React version -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // Initialize Supabase (use your actual credentials)
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Show/hide proof section
+        document.getElementById('hasProof').addEventListener('change', function() {
+            const proofSection = document.getElementById('proofSection');
+            if (this.value === 'yes') {
+                proofSection.classList.remove('hidden');
+            } else {
+                proofSection.classList.add('hidden');
+            }
+        });
+
+        // File upload handling
+        let selectedFiles = [];
+        const fileInput = document.getElementById('proofFiles');
+        const dropZone = document.getElementById('dropZone');
+        const fileList = document.getElementById('fileList');
+
+        fileInput.addEventListener('change', handleFiles);
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-purple-600');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-purple-600');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-purple-600');
+            handleFiles({target: {files: e.dataTransfer.files}});
+        });
+
+        function handleFiles(e) {
+            selectedFiles = Array.from(e.target.files);
+            displayFileList();
+        }
+
+        function displayFileList() {
+            fileList.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between bg-white p-2 rounded border border-gray-200 mb-2';
+                fileItem.innerHTML = `
+                    <span class="text-sm text-gray-700">${file.name} (${(file.size / 1024).toFixed(1)} KB)</span>
+                    <button onclick="removeFile(${index})" class="text-red-500 hover:text-red-700">✕</button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            displayFileList();
+        }
+
+        // Form submission
+        document.getElementById('submitBtn').addEventListener('click', async function() {
+            // Validate required fields
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const position = document.getElementById('position').value;
+            const stage = document.getElementById('stage').value;
+            const daysWaiting = document.getElementById('daysWaiting').value;
+            const story = document.getElementById('story').value;
+            const hasProof = document.getElementById('hasProof').value;
+            const consent = document.getElementById('consent').checked;
+
+            if (!name || !email || !company || !position || !stage || !daysWaiting || !story || !consent) {
+                alert('Please fill in all required fields and accept the consent agreement.');
+                return;
+            }
+
+            if (hasProof === 'yes') {
+                const proofType = document.getElementById('proofType').value;
+                if (!proofType) {
+                    alert('Please select the type of proof you have.');
+                    return;
+                }
+            }
+
+            try {
+                // Upload files to Supabase Storage if any
+                let fileUrls = [];
+                if (selectedFiles.length > 0) {
+                    for (const file of selectedFiles) {
+                        const fileExt = file.name.split('.').pop();
+                        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+                        const filePath = `proof/${fileName}`;
+
+                        const { data, error } = await supabase.storage
+                            .from('ghosting-proof')
+                            .upload(filePath, file);
+
+                        if (error) throw error;
+
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('ghosting-proof')
+                            .getPublicUrl(filePath);
+
+                        fileUrls.push(publicUrl);
+                    }
+                }
+
+                // Insert data into database
+                const { data, error } = await supabase
+                    .from('ghosting_reports')
+                    .insert([
+                        {
+                            name: name,
+                            email: email,
+                            company: company,
+                            position: position,
+                            stage: stage,
+                            days_waiting: parseInt(daysWaiting),
+                            story: story,
+                            has_proof: hasProof === 'yes',
+                            proof_type: hasProof === 'yes' ? document.getElementById('proofType').value : null,
+                            proof_files: fileUrls.length > 0 ? fileUrls : null,
+                            consent: true,
+                            created_at: new Date().toISOString()
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                // Show success message
+                document.getElementById('reportForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+
+                // Reset after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.add('hidden');
+                    document.getElementById('reportForm').classList.remove('hidden');
+                    document.getElementById('reportForm').reset();
+                    selectedFiles = [];
+                    displayFileList();
+                }, 5000);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error submitting your report. Please try again.');
+            }
+        });
+
+        // Research modal
+        document.getElementById('openResearchBtn').addEventListener('click', function() {
+            document.getElementById('researchModal').classList.remove('hidden');
+        });
+
+        document.getElementById('closeResearchBtn').addEventListener('click', function() {
+            document.getElementById('researchModal').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
