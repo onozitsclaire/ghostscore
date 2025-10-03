@@ -1115,7 +1115,7 @@
                         <textarea id="details" placeholder="e.g., They said I was a 'perfect fit' then never responded. Interviewer no-showed twice. Got verbal offer then silence..."></textarea>
                     </div>
                     
-                    <!-- New Proof Upload Section -->
+                    <!-- Proof Upload Section -->
                     <div style="background: #f0f9ff; border: 2px dashed #667eea; border-radius: 10px; padding: 20px; margin: 20px 0;">
                         <h4 style="color: #667eea; margin-bottom: 10px;">📸 Add Proof for Verified Badge (Optional)</h4>
                         <p style="font-size: 14px; color: #718096; margin-bottom: 15px;">
@@ -2070,13 +2070,65 @@
         window.handleSubmit = async function(event) {
             event.preventDefault();
             
+            // Handle file upload first if a file is selected
+            let proofUrl = null;
+            let proofType = null;
+            
+            const fileInput = document.getElementById('proof');
+            const proofTypeSelect = document.getElementById('proofType');
+            
+            if (fileInput && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                
+                // Check file size (5MB limit)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size must be less than 5MB');
+                    return;
+                }
+                
+                // Generate unique filename
+                const timestamp = Date.now();
+                const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+                const fileName = `${timestamp}_${cleanName}`;
+                
+                try {
+                    // Upload to Supabase Storage
+                    const { data: uploadData, error: uploadError } = await supabase.storage
+                        .from('ghost-proofs')
+                        .upload(fileName, file);
+                    
+                    if (uploadError) {
+                        console.error('Upload error:', uploadError);
+                        alert('Error uploading file. Please try again or submit without proof.');
+                        return;
+                    }
+                    
+                    // Get the public URL for the uploaded file
+                    const { data: urlData } = supabase.storage
+                        .from('ghost-proofs')
+                        .getPublicUrl(fileName);
+                    
+                    proofUrl = urlData.publicUrl;
+                    proofType = proofTypeSelect.value || 'other';
+                    
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    alert('Error uploading file. Please try again or submit without proof.');
+                    return;
+                }
+            }
+            
+            // Prepare form data with optional proof URL
             const formData = {
                 company_name: document.getElementById('company').value,
                 position: document.getElementById('position').value,
                 ghost_stage: document.getElementById('stage').value,
                 days_waiting: parseInt(document.getElementById('days').value) || null,
                 details: document.getElementById('details').value,
-                is_anonymous: document.getElementById('anonymous').checked
+                is_anonymous: document.getElementById('anonymous').checked,
+                user_email: document.getElementById('email').value || null,
+                proof_url: proofUrl,
+                proof_type: proofType
             };
             
             try {
