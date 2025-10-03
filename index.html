@@ -397,6 +397,7 @@
         .grade-c { background: #feebc8; color: #c05621; }
         .grade-d { background: #fed7e2; color: #97266d; }
         .grade-f { background: #fed7d7; color: #c53030; }
+        .grade-pending { background: #e0e0e0; color: #666; }
         
         .company-stats {
             display: flex;
@@ -851,10 +852,48 @@
                         <textarea id="details" placeholder="e.g., They said I was a 'perfect fit' then never responded. Interviewer no-showed twice. Got verbal offer then silence..."></textarea>
                     </div>
                     
+                    <!-- New Proof Upload Section -->
+                    <div style="background: #f0f9ff; border: 2px dashed #667eea; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📸 Add Proof for Verified Badge (Optional)</h4>
+                        <p style="font-size: 14px; color: #718096; margin-bottom: 15px;">
+                            Upload screenshots of emails, messages, or calendar invites. Verified reports carry 2x weight and get a ✓ badge.
+                        </p>
+                        <div class="form-group">
+                            <label for="proof">Upload Proof (PNG, JPG, PDF - Max 5MB)</label>
+                            <input type="file" id="proof" accept="image/*,.pdf" style="padding: 10px;">
+                            <small style="color: #718096;">We'll blur personal info before display</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="proofType">What kind of proof is this?</label>
+                            <select id="proofType">
+                                <option value="">Select proof type...</option>
+                                <option value="email">Email communication</option>
+                                <option value="linkedin">LinkedIn message</option>
+                                <option value="calendar">Interview calendar invite</option>
+                                <option value="offer">Offer letter / verbal offer email</option>
+                                <option value="portal">Application portal screenshot</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Your Email (Optional - for verification badge)</label>
+                        <input type="email" id="email" placeholder="your@email.com">
+                        <small style="color: #718096;">We'll send a verification link. Verified users build trust score over time.</small>
+                    </div>
+                    
                     <div class="form-group">
                         <label>
                             <input type="checkbox" id="anonymous" checked>
-                            Report anonymously
+                            Report anonymously (your email is never shown publicly)
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="consent" required>
+                            I confirm this report is truthful and based on my real experience *
                         </label>
                     </div>
                     
@@ -893,8 +932,8 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="trackEmail">Email (for reminders)</label>
-                        <input type="email" id="trackEmail" placeholder="We'll remind you when to follow up">
+                        <label for="trackEmail">Email (for reminders) *</label>
+                        <input type="email" id="trackEmail" required placeholder="We'll remind you when to follow up">
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Track This Application</button>
@@ -929,6 +968,7 @@
                         <li><strong><span style="background: #feebc8; color: #c05621; padding: 2px 8px; border-radius: 5px;">C Grade</span>:</strong> Responds to 50-69% within 6 weeks</li>
                         <li><strong><span style="background: #fed7e2; color: #97266d; padding: 2px 8px; border-radius: 5px;">D Grade</span>:</strong> Responds to 30-49% eventually</li>
                         <li><strong><span style="background: #fed7d7; color: #c53030; padding: 2px 8px; border-radius: 5px;">F Grade</span>:</strong> Less than 30% response rate</li>
+                        <li><strong><span style="background: #e0e0e0; color: #666; padding: 2px 8px; border-radius: 5px;">? Pending</span>:</strong> Less than 5 reports (needs more data)</li>
                     </ul>
                     
                     <h3 style="margin: 30px 0 15px; color: #667eea;">Join the Movement</h3>
@@ -1134,7 +1174,9 @@
                 <div class="company-card">
                     <div class="company-header">
                         <h3>${company.name}</h3>
-                        <span class="grade grade-${company.score.toLowerCase()}">${company.score}</span>
+                        <span class="grade grade-${company.score ? company.score.toLowerCase() : 'pending'}">
+                            ${company.score || '?'}
+                        </span>
                     </div>
                     <div class="company-stats">
                         <div class="stat-row">
@@ -1147,7 +1189,7 @@
                         </div>
                         <div class="stat-row">
                             <span>Reports:</span>
-                            <span>${company.reports}</span>
+                            <span>${company.reports} ${company.verifiedReports ? `(${company.verifiedReports} ✓)` : ''}</span>
                         </div>
                         <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #e2e8f0;">
                             <small style="color: #718096; font-style: italic;">"${company.details}"</small>
@@ -1167,7 +1209,9 @@
                 <div class="company-card">
                     <div class="company-header">
                         <h3>${company.name}</h3>
-                        <span class="grade grade-${company.score.toLowerCase()}">${company.score}</span>
+                        <span class="grade grade-${company.score ? company.score.toLowerCase() : 'pending'}">
+                            ${company.score || '?'}
+                        </span>
                     </div>
                     <div class="company-stats">
                         <div class="stat-row">
@@ -1274,16 +1318,49 @@
                     const tickerItems = data.map(report => {
                         let message = `<span class="alert">NEW:</span> ${report.company_name}`;
                         
+                        // Prioritize key information over long details
                         if (report.ghost_stage === 'offer') {
-                            message += ' ghosted after verbal offer';
+                            message += ' ghosted after VERBAL OFFER';
                         } else if (report.ghost_stage === 'onsite') {
-                            message += ' went silent after final round';
-                        } else if (report.days_waiting && report.days_waiting > 60) {
-                            message += ` - ${report.days_waiting} days of silence`;
-                        } else if (report.details && report.details.length > 0) {
-                            message += ` - "${report.details.substring(0, 50)}..."`;
-                        } else {
-                            message += ' just ghosted another candidate';
+                            message += ' went silent after FINAL ROUND';
+                        } else if (report.ghost_stage === 'tech') {
+                            message += ' ghosted after technical interview';
+                        } else if (report.ghost_stage === 'phone') {
+                            message += ' disappeared after phone screen';
+                        } else if (report.ghost_stage === 'application') {
+                            message += ' - zero response to application';
+                        }
+                        
+                        // Add days waiting if significant
+                        if (report.days_waiting) {
+                            if (report.days_waiting >= 90) {
+                                message += ` (${report.days_waiting} days!)`;
+                            } else if (report.days_waiting >= 60) {
+                                message += ` (${report.days_waiting} days)`;
+                            } else if (report.days_waiting >= 30) {
+                                message += ` (${report.days_waiting} days)`;
+                            }
+                        }
+                        
+                        // Only add details if they're short and impactful
+                        if (report.details && report.details.length > 0) {
+                            // Look for key phrases instead of showing everything
+                            const details = report.details.toLowerCase();
+                            if (details.includes('no show') || details.includes('no-show')) {
+                                message += ' - interviewer no-showed';
+                            } else if (details.includes('perfect fit')) {
+                                message += ' - called them "perfect fit"';
+                            } else if (details.includes('verbal offer')) {
+                                message += ' - had verbal offer!';
+                            } else if (details.includes('flew') || details.includes('flight')) {
+                                message += ' - flew them out for interview';
+                            } else if (details.includes('final') || details.includes('7') || details.includes('8')) {
+                                message += ' - multiple rounds';
+                            } else if (report.details.length <= 30) {
+                                // Only show very short details in full
+                                message += ` - "${report.details}"`;
+                            }
+                            // If details are too long and no key phrases, just skip them
                         }
                         
                         return `<span class="ticker-item">${message}</span>`;
@@ -1332,6 +1409,40 @@
             } catch (error) {
                 console.error('Error:', error);
                 alert('Error submitting report. Please try again.');
+            }
+        };
+        
+        // Override track form submission to save to database
+        window.handleTrackSubmit = async function(event) {
+            event.preventDefault();
+            
+            const trackData = {
+                company_name: document.getElementById('trackCompany').value,
+                date_applied: document.getElementById('trackDate').value,
+                user_email: document.getElementById('trackEmail').value,
+                status: 'tracking'
+            };
+            
+            try {
+                const { data, error } = await supabase
+                    .from('application_tracking')
+                    .insert([trackData]);
+                
+                if (error) throw error;
+                
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
+                document.getElementById('successMessage').querySelector('span:last-child').textContent = 
+                    `Application tracked! We'll send reminders to ${trackData.user_email} on days 14, 30, 47, and 60.`;
+                
+                document.getElementById('trackForm').reset();
+                
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.remove('show');
+                }, 5000);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error tracking application. Please try again.');
             }
         };
         
