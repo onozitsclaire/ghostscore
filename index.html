@@ -714,7 +714,7 @@
 
                 <!-- Industry Breakdown Chart -->
                 <div class="mb-12">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Ghost Rates by Industry</h3>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Ghosting Rates by Industry</h3>
                     <div class="chart-container">
                         <canvas id="industryChart"></canvas>
                     </div>
@@ -1297,28 +1297,28 @@
 
         // Initialize charts
         document.addEventListener('DOMContentLoaded', function() {
-            // Industry Chart
+            // Industry Chart - Showing ghosting rates for dramatic effect
             const industryCtx = document.getElementById('industryChart').getContext('2d');
             new Chart(industryCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Technology', 'Finance', 'Consulting', 'Healthcare', 'Manufacturing', 'Retail'],
+                    labels: ['Technology', 'Finance', 'Manufacturing', 'Consulting', 'Retail', 'Healthcare'],
                     datasets: [{
-                        label: 'Response Rate %',
-                        data: [5, 11, 15, 20, 12, 18],
+                        label: 'Ghosting Rate %',
+                        data: [95, 89, 88, 85, 82, 80],
                         backgroundColor: [
+                            'rgba(239, 68, 68, 0.9)',
+                            'rgba(220, 38, 38, 0.9)',
                             'rgba(239, 68, 68, 0.8)',
-                            'rgba(245, 158, 11, 0.8)',
-                            'rgba(245, 158, 11, 0.7)',
-                            'rgba(34, 197, 94, 0.8)',
-                            'rgba(251, 191, 36, 0.8)',
-                            'rgba(251, 191, 36, 0.7)'
+                            'rgba(245, 158, 11, 0.9)',
+                            'rgba(251, 191, 36, 0.9)',
+                            'rgba(251, 191, 36, 0.8)'
                         ],
                         borderColor: [
                             'rgb(239, 68, 68)',
+                            'rgb(220, 38, 38)',
+                            'rgb(239, 68, 68)',
                             'rgb(245, 158, 11)',
-                            'rgb(245, 158, 11)',
-                            'rgb(34, 197, 94)',
                             'rgb(251, 191, 36)',
                             'rgb(251, 191, 36)'
                         ],
@@ -1335,7 +1335,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.parsed.y + '% response rate';
+                                    return context.parsed.y + '% of candidates ghosted';
                                 }
                             }
                         }
