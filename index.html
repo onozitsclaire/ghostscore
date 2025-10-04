@@ -763,7 +763,7 @@
                         </table>
                     </div>
                     <p class="text-sm text-gray-600 mt-4 text-center">
-                        Based on 71 documented incidents across 56 companies from 2015-2025
+                        Based on <span id="tableFooterCount">71</span> documented incidents across 56 companies from 2015-2025
                     </p>
                 </div>
             </div>
@@ -1369,14 +1369,9 @@
 
         // Update database statistics
         async function updateDatabaseStats() {
-            // Use real numbers from research
-            document.getElementById('totalReports').textContent = '127+';
-            document.getElementById('companiesTracked').textContent = '71';
-            document.getElementById('verifiedCompanies').textContent = '56';
-            document.getElementById('pendingCompanies').textContent = '1M+';
-            
-            // Update counter with real baseline
-            document.getElementById('ghostCounter').textContent = '127';
+            // Base number from research
+            const baseCount = 127;
+            let totalReports = baseCount;
             
             // If Supabase is connected, add new submissions to the count
             if (supabaseClient) {
@@ -1386,14 +1381,48 @@
                         .select('*', { count: 'exact', head: true });
                     
                     if (count) {
-                        const totalReports = 127 + count;
-                        document.getElementById('totalReports').textContent = totalReports + '+';
-                        document.getElementById('ghostCounter').textContent = totalReports;
+                        totalReports = baseCount + count;
                     }
                 } catch (error) {
                     console.error('Error fetching real counts:', error);
                 }
             }
+            
+            // Update all instances of the report count
+            const elementsToUpdate = [
+                'headerReportCount',
+                'worstOffendersCount',
+                'ghostCounter',
+                'modalSummaryCount',
+                'modalConclusionCount',
+                'tableFooterCount'  // Added this one for the table footer
+            ];
+            
+            elementsToUpdate.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = totalReports;
+                    console.log(`Updated ${id} to ${totalReports}`); // Debug log
+                } else {
+                    console.log(`Element ${id} not found`); // Debug log
+                }
+            });
+            
+            // Update the stats card separately with the + sign
+            const totalReportsElement = document.getElementById('totalReports');
+            if (totalReportsElement) {
+                totalReportsElement.textContent = totalReports + '+';
+            }
+            
+            // Keep other stats at their research values
+            const companiesElement = document.getElementById('companiesTracked');
+            if (companiesElement) companiesElement.textContent = '71';
+            
+            const verifiedElement = document.getElementById('verifiedCompanies');
+            if (verifiedElement) verifiedElement.textContent = '56';
+            
+            const pendingElement = document.getElementById('pendingCompanies');
+            if (pendingElement) pendingElement.textContent = '1M+';
         }
 
         // Show/hide proof section
