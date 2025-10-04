@@ -176,32 +176,153 @@
                 display: none;
             }
         }
+        
+        /* Ticker animation */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .ticker-scroll {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .ticker-content {
+            display: inline-block;
+            padding-right: 100%;
+            animation: scroll 30s linear infinite;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-600 via-violet-600 to-indigo-700">
     <div class="py-12 px-4">
+        <!-- LIVE SHAME TICKER -->
+        <div class="max-w-6xl mx-auto mb-4">
+            <div class="bg-red-600 text-white py-3 px-4 rounded-lg shadow-2xl overflow-hidden">
+                <div class="flex items-center">
+                    <span class="text-xl mr-3 animate-pulse">🔴</span>
+                    <div class="ticker-scroll">
+                        <span class="ticker-content text-sm md:text-base font-semibold">
+                            BREAKING: Salesforce "absolutely worst recruiters" ghosted after 8hrs prep • 
+                            Tesla notorious for complete silence after smooth interviews • 
+                            ⚠️ SCAM ALERT: Crossover fake jobs platform - unpaid work then ghosted • 
+                            Meta 6+ weeks ghosting documented • 
+                            Google "team matching" black hole • 
+                            GE Healthcare positions don't exist - just collecting data • 
+                            JPMorgan expensive onsite then vanished • 
+                            10% ghosted AFTER VERBAL OFFERS • 
+                            $4,900 average loss per ghosted candidate •
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="max-w-4xl mx-auto">
-            <!-- Header -->
-            <div class="text-center mb-12">
-                <div class="text-7xl mb-4">👻</div>
-                <h1 class="text-5xl font-bold text-white mb-4">
-                    Help Us Hold Companies Accountable
+            <!-- AGGRESSIVE HEADER -->
+            <div class="text-center mb-8">
+                <h1 class="text-5xl md:text-6xl font-black text-white mb-2 leading-tight">
+                    THEY'RE GHOSTING YOU.
                 </h1>
-                <p class="text-2xl text-purple-100 mb-6">
-                    Every ghosting story matters. Yours could help thousands.
+                <p class="text-2xl md:text-3xl text-purple-100 font-bold mb-6">
+                    We Have 127 Documented Cases. Add Yours.
                 </p>
                 
-                <!-- Research Report Button -->
-                <button onclick="document.getElementById('researchModal').classList.remove('hidden'); document.body.classList.add('modal-open');" class="inline-flex items-center gap-2 bg-white text-purple-600 font-semibold py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors duration-200 shadow-lg cursor-pointer">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- SHOCKING STATS GRID -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 max-w-3xl mx-auto">
+                    <div class="bg-red-500 bg-opacity-90 backdrop-blur text-white p-4 rounded-lg transform hover:scale-105 transition-transform">
+                        <div class="text-3xl md:text-4xl font-black">95%</div>
+                        <div class="text-xs md:text-sm font-semibold uppercase">Tech Ignores You</div>
+                    </div>
+                    <div class="bg-orange-500 bg-opacity-90 backdrop-blur text-white p-4 rounded-lg transform hover:scale-105 transition-transform">
+                        <div class="text-3xl md:text-4xl font-black">$4,900</div>
+                        <div class="text-xs md:text-sm font-semibold uppercase">You Lose</div>
+                    </div>
+                    <div class="bg-yellow-500 bg-opacity-90 backdrop-blur text-white p-4 rounded-lg transform hover:scale-105 transition-transform">
+                        <div class="text-3xl md:text-4xl font-black">47</div>
+                        <div class="text-xs md:text-sm font-semibold uppercase">Days Wasted</div>
+                    </div>
+                    <div class="bg-purple-800 bg-opacity-90 backdrop-blur text-white p-4 rounded-lg transform hover:scale-105 transition-transform">
+                        <div class="text-3xl md:text-4xl font-black">61%</div>
+                        <div class="text-xs md:text-sm font-semibold uppercase">Get Ghosted</div>
+                    </div>
+                </div>
+                
+                <!-- Research Report Button (smaller, less prominent) -->
+                <button onclick="document.getElementById('researchModal').classList.remove('hidden'); document.body.classList.add('modal-open');" class="inline-flex items-center gap-2 bg-white bg-opacity-20 backdrop-blur text-white border-2 border-white font-semibold py-2 px-4 rounded-lg hover:bg-white hover:text-purple-600 transition-all duration-200 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                     </svg>
-                    View Full Research Report
+                    See Full Research
                 </button>
             </div>
 
-            <!-- Stats Section -->
-            <div class="bg-white bg-opacity-95 backdrop-blur rounded-2xl shadow-2xl p-8 mb-8">
+            <!-- WORST OFFENDERS - WALL OF SHAME -->
+            <div class="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl shadow-2xl p-6 mb-8">
+                <h2 class="text-3xl font-black text-white text-center mb-6 flex items-center justify-center gap-3">
+                    <span class="animate-pulse">🚨</span>
+                    THE WORST OFFENDERS
+                    <span class="animate-pulse">🚨</span>
+                </h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white bg-opacity-10 backdrop-blur border-2 border-red-300 rounded-xl p-4 transform hover:scale-105 transition-transform">
+                        <div class="text-white">
+                            <div class="font-black text-2xl mb-1">SALESFORCE</div>
+                            <div class="text-4xl font-black text-yellow-300 mb-2">WORST</div>
+                            <div class="text-sm opacity-90">"Absolutely worst recruiters"</div>
+                            <div class="text-xs opacity-75 mt-2">8+ hrs prep for final panel → ghosted</div>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur border-2 border-red-300 rounded-xl p-4 transform hover:scale-105 transition-transform">
+                        <div class="text-white">
+                            <div class="font-black text-2xl mb-1">CROSSOVER</div>
+                            <div class="text-4xl font-black text-red-300 mb-2">SCAM</div>
+                            <div class="text-sm opacity-90">"Fake job platform"</div>
+                            <div class="text-xs opacity-75 mt-2">Extensive unpaid work → cancelled</div>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur border-2 border-red-300 rounded-xl p-4 transform hover:scale-105 transition-transform">
+                        <div class="text-white">
+                            <div class="font-black text-2xl mb-1">TESLA</div>
+                            <div class="text-4xl font-black text-orange-300 mb-2">89%</div>
+                            <div class="text-sm opacity-90">"Notorious for ghosting"</div>
+                            <div class="text-xs opacity-75 mt-2">7 rounds + exec review → silence</div>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur border-2 border-red-300 rounded-xl p-4 transform hover:scale-105 transition-transform">
+                        <div class="text-white">
+                            <div class="font-black text-2xl mb-1">META</div>
+                            <div class="text-4xl font-black text-orange-300 mb-2">6+ WKS</div>
+                            <div class="text-sm opacity-90">Multiple documented cases</div>
+                            <div class="text-xs opacity-75 mt-2">3 interviews → 6 weeks silence</div>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur border-2 border-red-300 rounded-xl p-4 transform hover:scale-105 transition-transform">
+                        <div class="text-white">
+                            <div class="font-black text-2xl mb-1">GOOGLE</div>
+                            <div class="text-4xl font-black text-orange-300 mb-2">87%</div>
+                            <div class="text-sm opacity-90">"Team matching black hole"</div>
+                            <div class="text-xs opacity-75 mt-2">Pass all rounds → limbo forever</div>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur border-2 border-red-300 rounded-xl p-4 transform hover:scale-105 transition-transform">
+                        <div class="text-white">
+                            <div class="font-black text-2xl mb-1">GE HEALTHCARE</div>
+                            <div class="text-4xl font-black text-red-300 mb-2">FAKE</div>
+                            <div class="text-sm opacity-90">"Jobs don't exist"</div>
+                            <div class="text-xs opacity-75 mt-2">Employee confirmed: just collecting data</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-6">
+                    <p class="text-white text-sm opacity-90">Based on 127 verified reports from 71 companies (2015-2025)</p>
+                </div>
+            </div>
                 <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
                     What We've Found So Far
                 </h2>
